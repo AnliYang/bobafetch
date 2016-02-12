@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <title>BobaRun!</title>
+  <style>
+    input {
+        display: block;
+    }
+    #map {
+        height: 400px;
+        width: 400px;
+    }
+  </style>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+
+
+<body>
+  <h1>BobaRun!</h1>
+  <hr>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
+
+  {% block content %} BLOCK CONTENT GOES HERE {% endblock %}
+
+</body>
+</html>

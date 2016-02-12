@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Results Page Here</p>
+<div>Yelp Result
+    <div><img src={{ image }}></div>
+    <div>
+        {% for line in address %}
+            {{ line }}
+            <br>
+        {% endfor %}
+    </div>
+    <div>Average Rating: {{ rating }}</div>
+    <div><img src={{ rating_img_url }}></div>
+    <div>(based on {{ review_count }} reviews)</div>
+    <div><a href={{ yelp_url }}>View on Yelp</a></div>
+</div>
+
+<br><br>
+
+<div id="map">Map Result
+</div>
+
+<script src="static/js/boba.js"></script>
+{% endblock %}

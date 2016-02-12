@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>landing page here!</p>
+<form action="/search" method="POST">
+    <label>Current Location
+        <input type="text" name="Address" placeholder="683 Sutter St, San Francisco, CA 94109">
+    </label>
+    <br><input type="submit" value="Boba me!">
+</form>
+
+{% endblock %}
