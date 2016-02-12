@@ -7,6 +7,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 import json
 
+import yelp_call
+
 app = Flask(__name__)
 
 # To use the Flask sessions and the debug toolbar
@@ -33,8 +35,10 @@ def search():
     # parse results from the Yelp API
     # pass results to template and Google Maps API
     # FIXME: currently getting a single result from a static file
-    yelp_string = open('scratch/scratch.json').read()
-    yelp_dict = json.loads(yelp_string)
+    # yelp_string = open('scratch/scratch.json').read()
+    # yelp_dict = json.loads(yelp_string)
+
+    yelp_dict = yelp_call.request()
 
     # note: this address is in the form of a list.
     address = yelp_dict['businesses'][0]['location']['display_address']

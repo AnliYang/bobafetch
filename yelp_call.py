@@ -18,6 +18,7 @@ SEARCH_LIMIT = 1
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
+
 def request():
     """Prepares OAuth authentication and sends the request to the API."""
 
@@ -56,6 +57,7 @@ def request():
     conn = urllib2.urlopen(signed_url, None)
     try:
         response = json.loads(conn.read())
+        # response = conn.read()
     finally:
         conn.close()
 
