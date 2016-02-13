@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from flask_debugtoolbar import DebugToolbarExtension
 
 import json
@@ -38,11 +38,16 @@ def search():
     # yelp_string = open('scratch/scratch.json').read()
     # yelp_dict = json.loads(yelp_string)
 
-    yelp_dict = yelp_call.request()
+    user_address = request.form.get("Address")
+
+    yelp_dict = yelp_call.request(user_address)
+
+    fred = yelp_dict['businesses'][0]
 
     # note: this address is in the form of a list.
-    address = yelp_dict['businesses'][0]['location']['display_address']
-    coordinates = yelp_dict['businesses'][0]['location']['coordinate']
+    name = fred['name']
+    address = fred['location']['display_address']
+    coordinates = fred['location']['coordinate']
     yelp_url = yelp_dict['businesses'][0]['url']
     image = yelp_dict['businesses'][0]['image_url']
     mobile_url = yelp_dict['businesses'][0]['mobile_url']
@@ -55,7 +60,8 @@ def search():
     # parse results from Google Maps APIs, pass to template
 
     # return redirect('/result')
-    return render_template('results.html', address=address,
+    return render_template('results.html', name=name,
+                                           address=address,
                                            yelp_url=yelp_url,
                                            rating=rating,
                                            rating_img_url=rating_img_url,

@@ -19,12 +19,12 @@ SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
 
-def request():
+def request(user_address):
     """Prepares OAuth authentication and sends the request to the API."""
 
     # FIXME: hardcoded for now, and in here instead of request
     url_params = {
-        'location': '683 Sutter St, San Francisco, CA 94109',
+        'location': user_address,
         'limit': 1,
         'sort': 1,
         'category_filter': 'bubbletea'
