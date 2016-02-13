@@ -42,6 +42,8 @@ def search():
 
     yelp_dict = yelp_call.request(user_address)
 
+    
+# FIXME: fred name and propogate
     fred = yelp_dict['businesses'][0]
 
     # note: this address is in the form of a list.
@@ -66,7 +68,8 @@ def search():
                                            rating=rating,
                                            rating_img_url=rating_img_url,
                                            review_count=review_count,
-                                           image=image)
+                                           image=image,
+                                           coordinates=coordinates)
 
 
 @app.route('/result')

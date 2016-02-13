@@ -1,10 +1,16 @@
 function initMap() {
 
+var mapElement = document.getElementById('map');
+
+var latitude = parseFloat(mapElement.dataset.lat);
+
+var longitude = parseFloat(mapElement.dataset.lng);
+
 // specifying map center
-var myLatLng = {lat: 37.7898750430312, lng: -122.407143359783};
+var myLatLng = {lat: latitude, lng: longitude};
 
 // map object with DOM element for display
-var map = new google.maps.Map(document.getElementById('map'), {
+var map = new google.maps.Map(mapElement, {
     center: myLatLng,
     zoom: 15,
 });
