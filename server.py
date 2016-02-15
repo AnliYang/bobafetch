@@ -42,20 +42,17 @@ def search():
 
     yelp_dict = yelp_call.request(user_address)
 
-    
-# FIXME: fred name and propogate
-    fred = yelp_dict['businesses'][0]
-
+    index_alias = yelp_dict['businesses'][0]
     # note: this address is in the form of a list.
-    name = fred['name']
-    address = fred['location']['display_address']
-    coordinates = fred['location']['coordinate']
-    yelp_url = yelp_dict['businesses'][0]['url']
-    image = yelp_dict['businesses'][0]['image_url']
-    mobile_url = yelp_dict['businesses'][0]['mobile_url']
-    rating = yelp_dict['businesses'][0]['rating']
-    rating_img_url = yelp_dict['businesses'][0]['rating_img_url']
-    review_count = yelp_dict['businesses'][0]['review_count']
+    name = index_alias['name']
+    address = index_alias['location']['display_address']
+    coordinates = index_alias['location']['coordinate']
+    yelp_url = index_alias['url']
+    image = index_alias['image_url']
+    mobile_url = index_alias['mobile_url']
+    rating = index_alias['rating']
+    rating_img_url = index_alias['rating_img_url']
+    review_count = index_alias['review_count']
 
     # send requests to the Maps, Directions, etc. APIs
 
