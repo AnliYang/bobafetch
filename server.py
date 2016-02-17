@@ -34,13 +34,12 @@ def search():
     # send requests to the Yelp API
     # parse results from the Yelp API
     # pass results to template and Google Maps API
-    # FIXME: currently getting a single result from a static file
     # yelp_string = open('scratch/scratch.json').read()
     # yelp_dict = json.loads(yelp_string)
 
     user_address = request.form.get("Address")
 
-    yelp_dict = yelp_call.request(user_address)
+    yelp_dict = yelp_call.request_restaurants(user_address)
 
     index_alias = yelp_dict['businesses'][0]
     # note: this address is in the form of a list.
@@ -66,7 +65,8 @@ def search():
                                            rating_img_url=rating_img_url,
                                            review_count=review_count,
                                            image=image,
-                                           coordinates=coordinates)
+                                           coordinates=coordinates,
+                                           user_address=user_address)
 
 
 @app.route('/result')

@@ -1,21 +1,51 @@
-function initMap() {
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+// var map;
 
 var mapElement = document.getElementById('map');
 
-var latitude = parseFloat(mapElement.dataset.lat);
+var endLatitude = parseFloat(mapElement.dataset.endlat);
+var endLongitude = parseFloat(mapElement.dataset.endlng);
+var endLatLng = {lat: endLatitude, lng: endLongitude};
 
-var longitude = parseFloat(mapElement.dataset.lng);
+var startAddress = mapElement.dataset.startaddress;
 
-// specifying map center
-var myLatLng = {lat: latitude, lng: longitude};
-
-// map object with DOM element for display
-var map = new google.maps.Map(mapElement, {
-    center: myLatLng,
-    zoom: 15,
-});
-
+function initialize() {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+  
+// QUESTION: do I need to have a center?
+    var mapOptions = {
+        zoom:15,
+    // center: endLatLng
+    };
+  
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById("directionsPanel"));
 }
 
-// listener for the DOM
-google.maps.event.addDomListener(window, 'load', initMap);
+function calcRoute() {
+    var start = startAddress;
+
+    var end = endLatLng;
+    var request = {
+        origin:start,
+        destination:end,
+        travelMode: google.maps.TravelMode.WALKING
+    };
+  
+    var directionsService = new google.maps.DirectionsService();
+
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
+
+function showMap() {
+    initialize();
+    calcRoute();
+}
+
+google.maps.event.addDomListener(window, 'load', showMap);

@@ -17,9 +17,15 @@
 </div>
 
 <br><br>
-
+<!-- 
 <div id="map" data-lat="{{ coordinates['latitude'] }}" data-lng="{{ coordinates['longitude'] }}">Map Result
 </div>
+<div id="map warnings">ADD WALKING WARNINGS HERE, REQUIRED BY GOOGLE</div>
+
+<script src="static/js/boba.js"></script> -->
+
+<div id="map" style="float:left" data-startaddress="{{ user_address }}" data-endlat="{{ coordinates['latitude'] }}" data-endlng="{{ coordinates['longitude'] }}"></div>
+<div id="directionsPanel" style="float:right; height 100%"></div>
 
 <script src="static/js/boba.js"></script>
 {% endblock %}

@@ -1,3 +1,6 @@
+""""""
+
+
 # REFACTOR TO USE YELP PYTHON LIBRARY DOOIIII
 
 import os
@@ -19,7 +22,7 @@ SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
 
-def request(user_address):
+def request_restaurants(user_address):
     """Prepares OAuth authentication and sends the request to the API."""
 
     # FIXME: hardcoded for now, and in here instead of request
