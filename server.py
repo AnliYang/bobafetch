@@ -54,7 +54,8 @@ def search():
     # print type(running_speed)
 
     # FIXME: get pass time available and running speed to the yelp request
-    yelp_dict = yelp_call.request_restaurants(user_address)
+    # yelp_dict = yelp_call.request_restaurants(user_address)
+    yelp_dict = yelp_call.search(user_address, time_available, running_speed)
 
     index_alias = yelp_dict['businesses'][0]
     # note: this address is in the form of a list.

@@ -31,10 +31,11 @@ def get_radius(time_available, running_speed):
     consumption_time = 10
 
     # radius = 90% of ((time available - eating time) * running speed/60)/2
-    radius = .9 * ((time_available - consumption_time) * running_speed/60) / 2
+    radius_miles = .9 * ((time_available - consumption_time) * running_speed/60) / 2
 
+    radius_meters = radius_miles * 1609.34
     # radius needs to go into the request now
-    return radius
+    return radius_meters
 
 
 def request_restaurants(user_address, radius=40000):
@@ -86,18 +87,20 @@ def request_restaurants(user_address, radius=40000):
     return response
 
 
-def search():
+def search(user_address, time_available, running_speed):
     """Query Yelp's Search API"""
 
     # preps the search params for request()
     # yelp example also passes in the API_HOST and SEARCH_PATH
 
-    pass
+    # pass
 
 # FIXME:
     # takes in user_address, time available, and running speed
-    # radius = get_radius(time_available, running_speed)
-    # request_restaurants(user_address, radius)
+    radius = get_radius(time_available, running_speed)
+    response = request_restaurants(user_address, radius)
+
+    return response
 
 
 if __name__ == "__main__":
