@@ -21,16 +21,31 @@ SEARCH_LIMIT = 1
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
+# FIXME
+# def get_radius():
+#     """Prepares radius for use in request"""
 
-def request_restaurants(user_address):
+#     takes in time available, and running speed
+
+#     hardcode eating/buying to be like 10 or 15 minutes
+
+#     radius = ((time available - eating time) * running speed)/2
+
+#     radius needs to go into the request now
+
+
+def request_restaurants(user_address, radius=40000):
     """Prepares OAuth authentication and sends the request to the API."""
 
-    # FIXME: hardcoded for now, and in here instead of request
+    # FIXME: mostly hardcoded for now, and in here instead of request
     url_params = {
         'location': user_address,
         'limit': 1,
+        # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
         'sort': 1,
-        'category_filter': 'bubbletea'
+        'category_filter': 'bubbletea',
+        # Search radius in meters. Max value is 40000 meters (25 miles).
+        'radius_filter': radius
     }
 
     url = 'https://{0}{1}?'.format(API_HOST, urllib.quote(SEARCH_PATH.encode('utf8')))
@@ -75,6 +90,11 @@ def search():
     # yelp example also passes in the API_HOST and SEARCH_PATH
 
     pass
+
+# FIXME:
+    # takes in user_address, time available, and running speed
+    # radius = get_radius(time_available, running_speed)
+    # request_restaurants(user_address, radius)
 
 
 if __name__ == "__main__":

@@ -13,10 +13,9 @@ var startAddress = mapElement.dataset.startaddress;
 function initialize() {
     directionsDisplay = new google.maps.DirectionsRenderer();
   
-// QUESTION: do I need to have a center?
+// no center, because gonna change to center on route anyway
     var mapOptions = {
         zoom:15,
-    // center: endLatLng
     };
   
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);

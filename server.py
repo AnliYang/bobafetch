@@ -37,8 +37,21 @@ def search():
     # yelp_string = open('scratch/scratch.json').read()
     # yelp_dict = json.loads(yelp_string)
 
-    user_address = request.form.get("Address")
+    user_address = request.form.get("address")
+    # FIXME: get the other inputs from the form: time available and running speed
+    time_available = request.form.get("time-available")
+    running_speed = request.form.get("running-speed")
 
+    print user_address
+    print type(user_address)
+    print
+    print time_available
+    print type(time_available)
+    print
+    print running_speed
+    print type(running_speed)
+
+    # FIXME: get pass time available and running speed to the yelp request
     yelp_dict = yelp_call.request_restaurants(user_address)
 
     index_alias = yelp_dict['businesses'][0]
@@ -68,12 +81,6 @@ def search():
                                            coordinates=coordinates,
                                            user_address=user_address)
 
-
-@app.route('/result')
-def result():
-    '''Shows result(s) page with restaurant and running route information.'''
-
-    pass
 
 if __name__ == "__main__":
 # using the Flask Debug bar, including setting debug = True

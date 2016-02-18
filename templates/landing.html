@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>landing page here!</p>
 <form action="/search" method="POST">
     <label>Current Location
-        <input type="text" name="Address" placeholder="683 Sutter St, San Francisco, CA 94109">
+        <input type="text" name="address">
     </label>
-    <br><input type="submit" value="Boba me!">
+    <br><label>Time Available
+        <input type="text" name="time-available" placeholder="time in minutes"> minutes
+    </label>
+    <br><br><label>Running Speed
+        <input type="text" name="running-speed" placeholder="running speed in mph"> mph
+    </label>
+    <br><br><input type="submit" value="Boba me!">
 </form>
 
 {% endblock %}
