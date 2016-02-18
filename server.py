@@ -40,16 +40,18 @@ def search():
     user_address = request.form.get("address")
     # FIXME: get the other inputs from the form: time available and running speed
     time_available = request.form.get("time-available")
+    time_available = int(time_available)
     running_speed = request.form.get("running-speed")
+    running_speed = int(running_speed)
 
-    print user_address
-    print type(user_address)
-    print
-    print time_available
-    print type(time_available)
-    print
-    print running_speed
-    print type(running_speed)
+    # print user_address
+    # print type(user_address)
+    # print
+    # print time_available
+    # print type(time_available)
+    # print
+    # print running_speed
+    # print type(running_speed)
 
     # FIXME: get pass time available and running speed to the yelp request
     yelp_dict = yelp_call.request_restaurants(user_address)

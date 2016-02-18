@@ -22,16 +22,19 @@ SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
 # FIXME
-# def get_radius():
-#     """Prepares radius for use in request"""
+def get_radius(time_available, running_speed):
+    """Prepares radius for use in request"""
 
-#     takes in time available, and running speed
+    # takes in time available, and running speed
 
-#     hardcode eating/buying to be like 10 or 15 minutes
+    # hardcode eating/buying to be like 10 or 15 minutes
+    consumption_time = 10
 
-#     radius = ((time available - eating time) * running speed)/2
+    # radius = 90% of ((time available - eating time) * running speed/60)/2
+    radius = .9 * ((time_available - consumption_time) * running_speed/60) / 2
 
-#     radius needs to go into the request now
+    # radius needs to go into the request now
+    return radius
 
 
 def request_restaurants(user_address, radius=40000):
