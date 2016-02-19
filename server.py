@@ -44,45 +44,33 @@ def search():
     running_speed = request.form.get("running-speed")
     running_speed = int(running_speed)
 
-    # print user_address
-    # print type(user_address)
-    # print
-    # print time_available
-    # print type(time_available)
-    # print
-    # print running_speed
-    # print type(running_speed)
-
-    # FIXME: get pass time available and running speed to the yelp request
     # yelp_dict = yelp_call.request_restaurants(user_address)
     yelp_dict = yelp_call.search(user_address, time_available, running_speed)
 
-    index_alias = yelp_dict['businesses'][0]
-    # note: this address is in the form of a list.
-    name = index_alias['name']
-    address = index_alias['location']['display_address']
-    coordinates = index_alias['location']['coordinate']
-    yelp_url = index_alias['url']
-    image = index_alias['image_url']
-    mobile_url = index_alias['mobile_url']
-    rating = index_alias['rating']
-    rating_img_url = index_alias['rating_img_url']
-    review_count = index_alias['review_count']
+    if yelp_dict['total'] > 0:
+        index_alias = yelp_dict['businesses'][0]
+        # note: this address is in the form of a list.
+        name = index_alias['name']
+        address = index_alias['location']['display_address']
+        coordinates = index_alias['location']['coordinate']
+        yelp_url = index_alias['url']
+        image = index_alias['image_url']
+        mobile_url = index_alias['mobile_url']
+        rating = index_alias['rating']
+        rating_img_url = index_alias['rating_img_url']
+        review_count = index_alias['review_count']
 
-    # send requests to the Maps, Directions, etc. APIs
-
-    # parse results from Google Maps APIs, pass to template
-
-    # return redirect('/result')
-    return render_template('results.html', name=name,
-                                           address=address,
-                                           yelp_url=yelp_url,
-                                           rating=rating,
-                                           rating_img_url=rating_img_url,
-                                           review_count=review_count,
-                                           image=image,
-                                           coordinates=coordinates,
-                                           user_address=user_address)
+        return render_template('results.html', name=name,
+                                               address=address,
+                                               yelp_url=yelp_url,
+                                               rating=rating,
+                                               rating_img_url=rating_img_url,
+                                               review_count=review_count,
+                                               image=image,
+                                               coordinates=coordinates,
+                                               user_address=user_address)
+    else:
+        return render_template('no_results.html')
 
 
 if __name__ == "__main__":
