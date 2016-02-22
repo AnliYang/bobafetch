@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 
 import json
@@ -38,6 +38,15 @@ def search():
     # yelp_dict = json.loads(yelp_string)
 
     user_address = request.form.get("address")
+    
+    user_latitude = request.form.get("latitude")
+    
+    user_longitude = request.form.get("longitude")
+
+    print user_latitude
+    print type(user_latitude)
+    print "*" * 10
+
     # FIXME: get the other inputs from the form: time available and running speed
     time_available = request.form.get("time-available")
     time_available = int(time_available)
@@ -45,7 +54,7 @@ def search():
     running_speed = int(running_speed)
 
     # yelp_dict = yelp_call.request_restaurants(user_address)
-    yelp_dict = yelp_call.search(user_address, time_available, running_speed)
+    yelp_dict = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
 
     if yelp_dict['total'] > 0:
         index_alias = yelp_dict['businesses'][0]

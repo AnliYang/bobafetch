@@ -38,21 +38,50 @@ def get_radius(time_available, running_speed):
     return radius_meters
 
 
-def request_restaurants(user_address, radius=40000):
+def request_restaurants(user_address, user_latitude, user_longitude, radius=40000):
     """Prepares OAuth authentication and sends the request to the API."""
 
-    # FIXME: mostly hardcoded for now, and in here instead of request
-    url_params = {
-        'location': user_address,
-        'limit': 1,
-        # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
-        'sort': 1,
-        'category_filter': 'bubbletea',
-        # Search radius in meters. Max value is 40000 meters (25 miles).
-        'radius_filter': radius
-    }
+    # FIXME: should break out parameter if/else into its own function
+    if user_address != "":
+        url_params = {
+            'location': user_address,
+            'limit': 1,
+            # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
+            'sort': 1,
+            'category_filter': 'bubbletea',
+            # Search radius in meters. Max value is 40000 meters (25 miles).
+            'radius_filter': radius
+        }
+    else:
+        user_lat_lng = str(user_latitude) + ',' + str(user_longitude)
+
+        print "user_lat_lng"
+        print user_lat_lng
+        print type(user_lat_lng)
+        print "*" * 10
+
+        url_params = {
+            'll': user_lat_lng,
+            'limit': 1,
+            # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
+            'sort': 1,
+            'category_filter': 'bubbletea',
+            # Search radius in meters. Max value is 40000 meters (25 miles).
+            'radius_filter': radius
+        }
+
+        print url_params
+        print url_params['ll']
+        print type(url_params['ll'])
+        print url_params['radius_filter']
+        print type(url_params['radius_filter'])
+        print "*" * 10
+
+
 
     url = 'https://{0}{1}?'.format(API_HOST, urllib.quote(SEARCH_PATH.encode('utf8')))
+    print url
+    print "*" * 10
 
     consumer = oauth2.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
 
@@ -62,6 +91,11 @@ def request_restaurants(user_address, radius=40000):
     oauth_request = oauth2.Request(
         method="GET", url=url, parameters=url_params)
     # adds more entries to the request dictionary (of parameters for the query, looks like)
+
+    print "oauth request"
+    print oauth_request
+    print "*" * 10
+
     oauth_request.update(
         {
             'oauth_nonce': oauth2.generate_nonce(),
@@ -87,7 +121,7 @@ def request_restaurants(user_address, radius=40000):
     return response
 
 
-def search(user_address, time_available, running_speed):
+def search(user_address, user_latitude, user_longitude, time_available, running_speed):
     """Query Yelp's Search API"""
 
     # preps the search params for request()
@@ -98,7 +132,7 @@ def search(user_address, time_available, running_speed):
 # FIXME:
     # takes in user_address, time available, and running speed
     radius = get_radius(time_available, running_speed)
-    response = request_restaurants(user_address, radius)
+    response = request_restaurants(user_address, user_latitude, user_longitude, radius)
 
     return response
 
