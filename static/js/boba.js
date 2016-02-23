@@ -10,6 +10,10 @@ var endLatLng = {lat: endLatitude, lng: endLongitude};
 
 var startAddress = mapElement.dataset.startaddress;
 
+var startLatitude = parseFloat(mapElement.dataset.startlat);
+var startLongitude = parseFloat(mapElement.dataset.startlng);
+var startLatLng = {lat: startLatitude, lng: startLongitude};
+
 function initialize() {
     directionsDisplay = new google.maps.DirectionsRenderer();
   
@@ -24,9 +28,16 @@ function initialize() {
 }
 
 function calcRoute() {
-    var start = startAddress;
+    // var start = startAddress;
+    var start;
+    if (startAddress !== "") {
+        start = startAddress;
+    } else {
+        start = startLatLng;
+    }
 
     var end = endLatLng;
+
     var request = {
         origin:start,
         destination:end,
