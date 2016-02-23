@@ -53,12 +53,7 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
             'radius_filter': radius
         }
     else:
-        user_lat_lng = str(user_latitude) + ',' + str(user_longitude)
-
-        print "user_lat_lng"
-        print user_lat_lng
-        print type(user_lat_lng)
-        print "*" * 10
+        user_lat_lng = user_latitude + ',' + user_longitude
 
         url_params = {
             'll': user_lat_lng,
@@ -70,18 +65,7 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
             'radius_filter': radius
         }
 
-        print url_params
-        print url_params['ll']
-        print type(url_params['ll'])
-        print url_params['radius_filter']
-        print type(url_params['radius_filter'])
-        print "*" * 10
-
-
-
     url = 'https://{0}{1}?'.format(API_HOST, urllib.quote(SEARCH_PATH.encode('utf8')))
-    print url
-    print "*" * 10
 
     consumer = oauth2.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
 
@@ -91,10 +75,6 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
     oauth_request = oauth2.Request(
         method="GET", url=url, parameters=url_params)
     # adds more entries to the request dictionary (of parameters for the query, looks like)
-
-    print "oauth request"
-    print oauth_request
-    print "*" * 10
 
     oauth_request.update(
         {
@@ -117,7 +97,6 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
     finally:
         conn.close()
 
-    print response
     return response
 
 
