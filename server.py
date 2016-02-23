@@ -77,7 +77,9 @@ def search():
                                                review_count=review_count,
                                                image=image,
                                                coordinates=coordinates,
-                                               user_address=user_address)
+                                               user_address=user_address,
+                                               user_latitude=user_latitude,
+                                               user_longitude=user_longitude)
     else:
         return render_template('no_results.html')
 
