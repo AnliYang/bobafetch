@@ -64,6 +64,7 @@ def search():
         rating = index_alias['rating']
         rating_img_url = index_alias['rating_img_url']
         review_count = index_alias['review_count']
+        yelp_id = index_alias['id']
 
         return render_template('results.html', name=name,
                                                address=address,
@@ -75,7 +76,8 @@ def search():
                                                coordinates=coordinates,
                                                user_address=user_address,
                                                user_latitude=user_latitude,
-                                               user_longitude=user_longitude)
+                                               user_longitude=user_longitude,
+                                               yelp_id=yelp_id)
     else:
         return render_template('no_results.html')
 
@@ -84,5 +86,7 @@ if __name__ == "__main__":
 # using the Flask Debug bar, including setting debug = True
     app.debug = True
     DebugToolbarExtension(app)
+
+    # from model import connect_to_db, db
 
     app.run()
