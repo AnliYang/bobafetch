@@ -29,7 +29,7 @@ class User(db.Model):
 class Restaurant(db.Model):
     """Restaurants saved by users.
 
-    Used for favorite restaurants, routes done, or both.
+    Used for favorite restaurants, routes done (visited restaurants), or both.
 
     Uses yelp_location_id as the primary_key"""
 
@@ -51,15 +51,41 @@ class Favorite_Restaurant(db.Model):
     __tablename__ = "favorite_restaurants"
 
     favorite_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
+# note that user_id will need to be nullable if I start saving the restaurant
+# prior to it being favorited or marked as visited
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
+    # date_created = db.Column(db.DateTime, ...)
 
+    user = db.relationship("User",
+                           backref=db.backref("favorites"))
+
+    restaurant = db.relationship("Restaurant",
+                                 backref=db.backref("users_who_have_favorited"))
+
+
+# FIXME: association table
+class Visited_Restaurant(db.Model):
+    """Restaurants visited by users.
+
+    A user can visit the same restaurant multiple times."""
+
+    __tablename__ = "visited_restaurants"
+
+    visit_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+# note that user_id will need to be nullable if I start saving the restaurant
+# prior to it being favorited or marked as visited
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
+    distance_miles = db.Column(db.Float, nullable=False)
+    running_time_minutes = db.Column(db.Integer, nullable=False)
     # date_created =
 
+    # users = db.relationship("User",
+    #                        backref=db.backref("visited_restaurant"))
 
-    user = 
-
-    restaurant = 
+    # restaurant = db.relationship("Restaurant",
+    #                              backref=db.backref("visits"))
 
 
 # class Rating(db.Model):
@@ -131,9 +157,11 @@ def connect_to_db(app):
     db.init_app(app)
 
 
-if __name__ == "__main__":
-    # if module run in interactive mode, we can work with database directly
-    
-    from server import app
-    connect_to_db(app)
-    print "Connected to DB."
+# if __name__ == "__main__":
+#     # if module run in interactive mode, we can work with database directly
+
+#     from server import app
+#     connect_to_db(app)
+#     print "Connected to DB."
+
+#     db.create_all()

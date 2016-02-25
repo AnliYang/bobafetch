@@ -38,14 +38,14 @@ def search():
     # yelp_dict = json.loads(yelp_string)
 
     user_address = request.form.get("address")
-    
+
     user_latitude = request.form.get("latitude")
     user_longitude = request.form.get("longitude")
 
     # FIXME: get the other inputs from the form: time available and running speed
     time_available = request.form.get("time-available")
     time_available = int(time_available)
-    
+
     running_speed = request.form.get("running-speed")
     running_speed = int(running_speed)
 
@@ -87,6 +87,8 @@ if __name__ == "__main__":
     app.debug = True
     DebugToolbarExtension(app)
 
-    # from model import connect_to_db, db
+    from model import connect_to_db, db
+    connect_to_db(app)
+    db.create_all()
 
     app.run()
