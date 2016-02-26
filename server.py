@@ -2,12 +2,14 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash
+from flask import Flask, render_template, redirect, request, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 
 import json
 
 import yelp_call
+
+from model import connect_to_db, db, User, Restaurant, Favorite_Restaurant, Visited_Restaurant
 
 app = Flask(__name__)
 
@@ -126,17 +128,48 @@ def login_process():
     pass
     # again, see ratings
 
+    email = request.form["email"]
+    password = request.form["password"]
+
+    user = User.query.filter(email==email).first()
+
+    if not user:
+        flash("No such user")
+        return redirect("/login")
+
+    if user.password != password:
+        flash("Incorrect password")
+        return redirect("/login")
+
+    session["user_id"] = user.user_id
+
+    flash("Logged in")
+
+    return redirect("/")
+
 
 @app.route('/logout')
 def logout():
     """Log out."""
-    
-    pass 
 
-    # del session["user_id"]
-    # flash("Logged Out.")
-    # return redirect("/")
+    del session["user_id"]
+    flash("Logged Out.")
+    return redirect("/")
 
+
+# route for showing multiple results
+
+
+# route after someone clicks "Map it" to show directions to a particular restaurant
+
+
+# route for profile page (when someone clicks Profile in header)
+
+
+# route for user's list of favorite restaurants
+
+
+# route for user's list of trips/routes (visited restaurants)
 
 if __name__ == "__main__":
 # using the Flask Debug bar, including setting debug = True
