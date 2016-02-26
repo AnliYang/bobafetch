@@ -54,9 +54,18 @@ def search():
 
     if yelp_dict['total'] > 0:
         index_alias = yelp_dict['businesses'][0]
-        # note: this address is in the form of a list.
+
         name = index_alias['name']
-        address = index_alias['location']['display_address']
+        # note: this address is in the form of a list.
+        # this is the form currently being used by the results page
+        display_address = index_alias['location']['display_address']
+        # note: this set of address info is broken out by line.
+        # adding these variables into to use for STORING the adddress in db
+        street_address = index_alias['location']['address']
+        city = index_alias['location']['city']
+        state = index_alias['location']['state_code']
+        zip5 = index_alias['location']['postal_code']
+
         coordinates = index_alias['location']['coordinate']
         yelp_url = index_alias['url']
         image = index_alias['image_url']
@@ -67,7 +76,7 @@ def search():
         yelp_id = index_alias['id']
 
         return render_template('results.html', name=name,
-                                               address=address,
+                                               address=display_address,
                                                yelp_url=yelp_url,
                                                rating=rating,
                                                rating_img_url=rating_img_url,
