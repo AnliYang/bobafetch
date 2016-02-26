@@ -26,7 +26,6 @@ def index():
     return render_template('landing.html')
 
 
-# FIXME: currently only redirects to results page
 @app.route('/search', methods=["POST"])
 def search():
     '''Searches for restaurant and running route results.'''
@@ -89,6 +88,54 @@ def search():
                                                yelp_id=yelp_id)
     else:
         return render_template('no_results.html')
+
+# got this from Ratings, but unclear why I need to specify the GET method for the form route?
+@app.route('/signup', methods=['GET'])
+def signup_form():
+    '''Show signup (user account creation) form.'''
+
+    return render_template("signup.html")
+
+
+@app.route('/signup', methods=['POST'])
+def signup_process():
+    '''Process signup form'''
+
+    pass
+
+    # (see ratings, you can basically just copy)
+    # turn the form fields into variables for use
+    # instantiate a new user
+    # add the user to the db
+    # commit to db
+    # add a flash message
+    # return a redirect...
+
+
+@app.route('/login', methods=['GET'])
+def login_form():
+    """Show login form."""
+
+    return render_template("login.html")
+
+
+@app.route('/login', methods=['POST'])
+def login_process():
+    """Process login."""
+
+    pass
+    # again, see ratings
+
+
+@app.route('/logout')
+def logout():
+    """Log out."""
+    
+    pass 
+
+    # del session["user_id"]
+    # flash("Logged Out.")
+    # return redirect("/")
 
 
 if __name__ == "__main__":
