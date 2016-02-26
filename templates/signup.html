@@ -1,6 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>SIGNUP (ACCOUNT CREATION)</p>
+<h1>Signup Page (Account Creation)</h1>
 
-<!-- maybe add a map just centered on their place and marked -->
+<form action="/signup" method="POST">
+    <div>
+        <label>
+            First Name
+            <input type="text" name="firstname">
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Last Name
+            <input type="text" name="lastname">
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Email
+            <input type="email" name="email">
+        </label>
+    </div>
+
+    <div>
+        <label>
+            Password
+            <input type="password" name="password">
+        </label>
+    </div>
+
+    <div>
+        <input type="submit" value="Create my account!">
+    </div>
+
+</form>
 {% endblock %}

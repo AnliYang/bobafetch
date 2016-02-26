@@ -103,15 +103,32 @@ def signup_form():
 def signup_process():
     '''Process signup form'''
 
-    pass
-
-    # (see ratings, you can basically just copy)
     # turn the form fields into variables for use
     # instantiate a new user
     # add the user to the db
     # commit to db
     # add a flash message
     # return a redirect...
+
+    # FIXME: Add handling for already existing user
+    # FIXME: Also probably set up to be logged in once you register
+
+    email = request.form["email"]
+    password = request.form["password"]
+    first_name = request.form["firstname"]
+    last_name = request.form["lastname"]
+
+    new_user = User(email=email, password=password, first_name=first_name, last_name=last_name)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    session["user_id"] = new_user.user_id
+
+    flash("User %s added." % email)
+    flash("Logged in")
+
+    return redirect("/")
 
 
 @app.route('/login', methods=['GET'])
@@ -124,9 +141,6 @@ def login_form():
 @app.route('/login', methods=['POST'])
 def login_process():
     """Process login."""
-
-    pass
-    # again, see ratings
 
     email = request.form["email"]
     password = request.form["password"]
