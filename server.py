@@ -111,7 +111,6 @@ def signup_process():
     # return a redirect...
 
     # FIXME: Add handling for already existing user
-    # FIXME: Also probably set up to be logged in once you register
 
     email = request.form["email"]
     password = request.form["password"]
@@ -123,6 +122,7 @@ def signup_process():
     db.session.add(new_user)
     db.session.commit()
 
+    # return new user to landing page in logged in state
     session["user_id"] = new_user.user_id
 
     flash("User %s added." % email)
@@ -178,12 +178,62 @@ def logout():
 
 
 # route for profile page (when someone clicks Profile in header)
+@app.route('/profile')
+def show_profile():
+    """User profile page"""
+
+    return render_template("profile.html")
 
 
 # route for user's list of favorite restaurants
 
 
 # route for user's list of trips/routes (visited restaurants)
+
+
+# kept getting error (below) when trying this from yelp_call, so moving here
+# "RuntimeError: application not registered on db instance and no application 
+# bound to current context"
+def get_restaurants_from_db(list_of_yelp_ids):
+    """Grab restaurants from DB, returns a list of restaurant dictionaries."""
+    pass
+
+    restaurants = []
+
+    for id in list_of_yelp_ids:
+        restaurant = {}
+
+        restaurant['name'] = db.session.query(Restaurant.name).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['street_address'] = db.session.query(Restaurant.street_address).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['city'] = 
+        # restaurant['state'] = 
+        # restaurant['zip5'] = 
+        # restaurant['yelp_url'] = 
+        # restaurant['rating'] = 
+        # restaurant['rating_img_url'] = 
+        # restaurant['yelp_id'] = 
+
+        # latitude = 
+        # longitude = 
+        # restaurant[coordinates] =
+
+        restaurants.append(restaurant)
+
+                                    # name=name,
+                                    # street_address=street_address,
+                                    # city=city,
+                                    # state=state,
+                                    # zip5=zip5,
+                                    # latitude=latitude,
+                                    # longitude=longitude,
+                                    # yelp_url=yelp_url,
+                                    # image_url=image_url,
+                                    # mobile_url=mobile_url,
+                                    # rating=rating,
+                                    # rating_img_url=rating_img_url,
+                                    # review_count=review_count)
+
+    return restaurants
 
 if __name__ == "__main__":
 # using the Flask Debug bar, including setting debug = True

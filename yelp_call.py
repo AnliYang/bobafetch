@@ -8,6 +8,7 @@ import oauth2
 import urllib
 import urllib2
 import json
+from model import db, User, Restaurant, Favorite_Restaurant, Visited_Restaurant
 
 CONSUMER_KEY = os.environ['YELP_CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['YELP_CONSUMER_SECRET']
@@ -38,14 +39,14 @@ def get_radius(time_available, running_speed):
     return radius_meters
 
 
-def request_restaurants(user_address, user_latitude, user_longitude, radius=40000):
+def request_restaurants(user_address, user_latitude, user_longitude, radius=40000, limit=5):
     """Prepares OAuth authentication and sends the request to the API."""
 
     # FIXME: should break out parameter if/else into its own function
     if user_address != "":
         url_params = {
             'location': user_address,
-            'limit': 1,
+            'limit': limit,
             # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
             'sort': 1,
             'category_filter': 'bubbletea',
@@ -57,7 +58,7 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
 
         url_params = {
             'll': user_lat_lng,
-            'limit': 1,
+            'limit': limit,
             # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
             'sort': 1,
             'category_filter': 'bubbletea',
@@ -98,6 +99,59 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
         conn.close()
 
     return response
+
+def convert_response():
+    """Turn the Yelp response into a list of dictionaries"""
+
+    pass
+    # only necessary/useful if you're not saving to the dictionary right now
+
+
+def save_restaurants(response, limit=5):
+    """Takes in response dictionary, saves restaurants to the DB."""
+
+    # FIXME: will need to account for duplicates: if a restaurant is already in 
+    # the db (match on yelp id), you'll need to update the existing entry rather
+    # than creating a new one (probably an if statement first)
+
+    for i in range(limit):
+        # pull the items out of the response for a given restaurant
+        index_alias = response['businesses'][i]
+
+        name = index_alias['name']
+        street_address = index_alias['location']['address']
+        city = index_alias['location']['city']
+        state = index_alias['location']['state_code']
+        zip5 = index_alias['location']['postal_code']
+        coordinates = index_alias['location']['coordinate']
+        yelp_url = index_alias['url']
+        image = index_alias['image_url']
+        mobile_url = index_alias['mobile_url']
+        rating = index_alias['rating']
+        rating_img_url = index_alias['rating_img_url']
+        review_count = index_alias['review_count']
+        yelp_location_id = index_alias['id']
+
+        # instantiate the Restaurant object
+        new_restaurant = Restaurant(yelp_location_id=yelp_location_id,
+                                    name=name,
+                                    street_address=street_address,
+                                    city=city,
+                                    state=state,
+                                    zip5=zip5,
+                                    latitude=latitude,
+                                    longitude=longitude,
+                                    yelp_url=yelp_url,
+                                    image_url=image_url,
+                                    mobile_url=mobile_url,
+                                    rating=rating,
+                                    rating_img_url=rating_img_url,
+                                    review_count=review_count)
+
+
+        # add to the db and commit! 
+        db.session.add(new_restaurant)
+        db.session.commit()
 
 
 def search(user_address, user_latitude, user_longitude, time_available, running_speed):
