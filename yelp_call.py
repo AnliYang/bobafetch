@@ -39,7 +39,7 @@ def get_radius(time_available, running_speed):
     return radius_meters
 
 
-def request_restaurants(user_address, user_latitude, user_longitude, radius=40000, limit=5):
+def request_restaurants(user_address, user_latitude, user_longitude, radius=40000, limit=10):
     """Prepares OAuth authentication and sends the request to the API."""
 
     # FIXME: should break out parameter if/else into its own function
@@ -98,6 +98,8 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
     finally:
         conn.close()
 
+    save_restaurants(response)
+
     return response
 
 def convert_response():
@@ -107,7 +109,7 @@ def convert_response():
     # only necessary/useful if you're not saving to the dictionary right now
 
 
-def save_restaurants(response, limit=5):
+def save_restaurants(response, limit=10):
     """Takes in response dictionary, saves restaurants to the DB."""
 
     # FIXME: will need to account for duplicates: if a restaurant is already in 
@@ -120,12 +122,18 @@ def save_restaurants(response, limit=5):
 
         name = index_alias['name']
         street_address = index_alias['location']['address']
+
+        print "*" * 50
+        print "type for street address going into the db"
+        print type(street_address)
+
+
         city = index_alias['location']['city']
         state = index_alias['location']['state_code']
         zip5 = index_alias['location']['postal_code']
         coordinates = index_alias['location']['coordinate']
         yelp_url = index_alias['url']
-        image = index_alias['image_url']
+        image_url = index_alias['image_url']
         mobile_url = index_alias['mobile_url']
         rating = index_alias['rating']
         rating_img_url = index_alias['rating_img_url']
@@ -139,8 +147,8 @@ def save_restaurants(response, limit=5):
                                     city=city,
                                     state=state,
                                     zip5=zip5,
-                                    latitude=latitude,
-                                    longitude=longitude,
+                                    latitude=coordinates['latitude'],
+                                    longitude=coordinates['longitude'],
                                     yelp_url=yelp_url,
                                     image_url=image_url,
                                     mobile_url=mobile_url,

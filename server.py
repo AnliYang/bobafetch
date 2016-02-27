@@ -185,6 +185,33 @@ def show_profile():
     return render_template("profile.html")
 
 
+@app.route("/add-to-favorites", methods=["POST"])
+def add_to_favorites():
+    """Add a favorite restaurant for a user"""
+
+    yelp_location_id = request.form.get("yelp_id")
+    # get the user id from the session?
+
+    # use the yelp_location_id to get the restaurant_id from the db
+    # create a new favorites entry for that user-restaurant combo
+
+    # send back success and an id to update the page to indicate action completed
+    return jsonify(status="success", id=yelp_id)
+
+@app.route("/add-to-visited", methods=["POST"])
+def add_to_visited():
+    """Add a visited restaurant for a user"""
+
+    yelp_location_id = request.form.get("yelp_id")
+    # get the user id from the session?
+
+    # use the yelp_location_id to get the restaurant_id from the db
+    # create a new visited_restaurants entry for that user-restaurant combo
+
+    # send back success and an id to update the page to indicate action completed
+    return jsonify(status="success", id=yelp_id)
+
+
 # route for user's list of favorite restaurants
 
 
@@ -196,7 +223,9 @@ def show_profile():
 # bound to current context"
 def get_restaurants_from_db(list_of_yelp_ids):
     """Grab restaurants from DB, returns a list of restaurant dictionaries."""
-    pass
+
+    # function for use in displaying search results and for future user favorites page
+    # ? jsonify necessary before passing to Jinja template?
 
     restaurants = []
 
@@ -205,6 +234,9 @@ def get_restaurants_from_db(list_of_yelp_ids):
 
         restaurant['name'] = db.session.query(Restaurant.name).filter(Restaurant.yelp_location_id==id).first()
         restaurant['street_address'] = db.session.query(Restaurant.street_address).filter(Restaurant.yelp_location_id==id).first()
+        print "*" * 50
+        print "street address type coming out of the db:"
+        print type(restaurant['street_address'])
         # restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
         # restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
         # restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()
