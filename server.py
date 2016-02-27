@@ -205,33 +205,19 @@ def get_restaurants_from_db(list_of_yelp_ids):
 
         restaurant['name'] = db.session.query(Restaurant.name).filter(Restaurant.yelp_location_id==id).first()
         restaurant['street_address'] = db.session.query(Restaurant.street_address).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['city'] = 
-        # restaurant['state'] = 
-        # restaurant['zip5'] = 
-        # restaurant['yelp_url'] = 
-        # restaurant['rating'] = 
-        # restaurant['rating_img_url'] = 
-        # restaurant['yelp_id'] = 
+        # restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['yelp_url'] = db.session.query(Restaurant.yelp_url).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['rating'] = db.session.query(Restaurant.rating).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['rating_img_url'] = db.session.query(Restaurant.rating_img_url).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['yelp_id'] = id
 
-        # latitude = 
-        # longitude = 
+        # latitude = db.session.query(Restaurant.latitude).filter(Restaurant.yelp_location_id==id).first()
+        # longitude = db.session.query(Restaurant.longitude).filter(Restaurant.yelp_location_id==id).first()
         # restaurant[coordinates] =
 
         restaurants.append(restaurant)
-
-                                    # name=name,
-                                    # street_address=street_address,
-                                    # city=city,
-                                    # state=state,
-                                    # zip5=zip5,
-                                    # latitude=latitude,
-                                    # longitude=longitude,
-                                    # yelp_url=yelp_url,
-                                    # image_url=image_url,
-                                    # mobile_url=mobile_url,
-                                    # rating=rating,
-                                    # rating_img_url=rating_img_url,
-                                    # review_count=review_count)
 
     return restaurants
 
