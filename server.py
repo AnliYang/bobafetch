@@ -213,9 +213,19 @@ def add_to_visited():
 
 
 # route for user's list of favorite restaurants
+@app.route("/favorite-restaurants")
+def display_favorites():
+    """Displays page of favorite restaurants."""
+
+    pass
 
 
 # route for user's list of trips/routes (visited restaurants)
+@app.route("/visited-restaurants")
+def display_visited():
+    """Displays page of visited restaurants."""
+
+    pass
 
 
 # kept getting error (below) when trying this from yelp_call, so moving here
@@ -237,16 +247,16 @@ def get_restaurants_from_db(list_of_yelp_ids):
         print "*" * 50
         print "street address type coming out of the db:"
         print type(restaurant['street_address'])
-        # restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['yelp_url'] = db.session.query(Restaurant.yelp_url).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['rating'] = db.session.query(Restaurant.rating).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['rating_img_url'] = db.session.query(Restaurant.rating_img_url).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['yelp_id'] = id
+        restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['yelp_url'] = db.session.query(Restaurant.yelp_url).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['rating'] = db.session.query(Restaurant.rating).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['rating_img_url'] = db.session.query(Restaurant.rating_img_url).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['yelp_id'] = id
 
-        # latitude = db.session.query(Restaurant.latitude).filter(Restaurant.yelp_location_id==id).first()
-        # longitude = db.session.query(Restaurant.longitude).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['latitude'] = db.session.query(Restaurant.latitude).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['longitude'] = db.session.query(Restaurant.longitude).filter(Restaurant.yelp_location_id==id).first()
         # restaurant[coordinates] =
 
         restaurants.append(restaurant)

@@ -109,7 +109,7 @@ def convert_response():
     # only necessary/useful if you're not saving to the dictionary right now
 
 
-def save_restaurants(response, limit=10):
+def save_restaurants(response, limit=1):
     """Takes in response dictionary, saves restaurants to the DB."""
 
     # FIXME: will need to account for duplicates: if a restaurant is already in 

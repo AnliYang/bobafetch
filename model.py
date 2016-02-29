@@ -132,7 +132,7 @@ def seed(app):
 
     rest = Restaurant(yelp_location_id='comebuy-drinks-redwood-city',
                       name='Comebuy Drinks',
-                      street_address='2074 Broadway',
+                      street_address= '2074 Broadway',
                       city='Redwood City',
                       state='CA',
                       zip5='94063',
