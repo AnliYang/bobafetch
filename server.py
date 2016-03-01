@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 import json
@@ -172,9 +172,19 @@ def logout():
 
 
 # route for showing multiple results
+@app.route('/results')
+def show_results():
+    """Shows restaurant search results."""
+
+    pass
 
 
 # route after someone clicks "Map it" to show directions to a particular restaurant
+@app.route('/map', methods=["POST"])
+def show_map():
+    """Shows map route to individual restaurant."""
+
+    return render_template("map.html")
 
 
 # route for profile page (when someone clicks Profile in header)
@@ -190,13 +200,27 @@ def add_to_favorites():
     """Add a favorite restaurant for a user"""
 
     yelp_location_id = request.form.get("yelp_id")
-    # get the user id from the session?
+    user_id = session["user_id"]
+
+    # FIXME: hardcoded values for testing:
+    # yelp_location_id = 'gong-cha-palo-alto'
+    # user_id = 1
 
     # use the yelp_location_id to get the restaurant_id from the db
+    restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).first()
+    restaurant_id = restaurant_id[0]
+    # FIXME will need to actually be limiting duplicates in restaurants for this to work
+    restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).one()
+
     # create a new favorites entry for that user-restaurant combo
+    new_favorite = Favorite_Restaurant(user_id=user_id,
+                                       restaurant_id=restaurant_id)
+
+    db.session.add(new_favorite)
+    db.session.commit()
 
     # send back success and an id to update the page to indicate action completed
-    return jsonify(status="success", id=yelp_id)
+    # return jsonify(status="success", id=yelp_location_id)
 
 @app.route("/add-to-visited", methods=["POST"])
 def add_to_visited():

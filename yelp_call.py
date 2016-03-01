@@ -102,12 +102,6 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
 
     return response
 
-def convert_response():
-    """Turn the Yelp response into a list of dictionaries"""
-
-    pass
-    # only necessary/useful if you're not saving to the dictionary right now
-
 
 def save_restaurants(response, limit=1):
     """Takes in response dictionary, saves restaurants to the DB."""
@@ -156,10 +150,16 @@ def save_restaurants(response, limit=1):
                                     rating_img_url=rating_img_url,
                                     review_count=review_count)
 
-
-        # add to the db and commit! 
+        # add to the db and commit!
         db.session.add(new_restaurant)
         db.session.commit()
+
+
+def convert_response():
+    """Turn the Yelp response into a list of dictionaries"""
+
+    pass
+    # only necessary/useful if you're not saving to the dictionary right now
 
 
 def search(user_address, user_latitude, user_longitude, time_available, running_speed):
