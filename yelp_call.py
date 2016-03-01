@@ -117,10 +117,9 @@ def save_restaurants(response, limit=1):
         name = index_alias['name']
         street_address = index_alias['location']['address']
 
-        print "*" * 50
-        print "type for street address going into the db"
-        print type(street_address)
-
+        # print "*" * 50
+        # print "type for street address going into the db"
+        # print type(street_address)
 
         city = index_alias['location']['city']
         state = index_alias['location']['state_code']

@@ -62,7 +62,7 @@ def search():
         display_address = index_alias['location']['display_address']
         # note: this set of address info is broken out by line.
         # adding these variables into to use for STORING the adddress in db
-        street_address = index_alias['location']['address']
+        display_address = index_alias['location']['address']
         city = index_alias['location']['city']
         state = index_alias['location']['state_code']
         zip5 = index_alias['location']['postal_code']
@@ -267,10 +267,10 @@ def get_restaurants_from_db(list_of_yelp_ids):
         restaurant = {}
 
         restaurant['name'] = db.session.query(Restaurant.name).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['street_address'] = db.session.query(Restaurant.street_address).filter(Restaurant.yelp_location_id==id).first()
+        restaurant['display_address'] = db.session.query(Restaurant.display_address).filter(Restaurant.yelp_location_id==id).first()
         print "*" * 50
         print "street address type coming out of the db:"
-        print type(restaurant['street_address'])
+        print type(restaurant['display_address'])
         restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
         restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
         restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()

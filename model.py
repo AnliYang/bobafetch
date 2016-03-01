@@ -48,10 +48,10 @@ class Restaurant(db.Model):
     yelp_location_id = db.Column(db.String(500), nullable=False)
     name = db.Column(db.String(120), nullable=False)
     # address = db.Column(db.String(200), nullable=False)
-    street_address = db.Column(db.String(30), nullable=False)
-    city = db.Column(db.String(30), nullable=False)
-    state = db.Column(db.String(2), nullable=False)
-    zip5 = db.Column(db.String(5), nullable=False)
+    display_address = db.Column(db.String(30), nullable=False)
+    city = db.Column(db.String(30), nullable=True)
+    state = db.Column(db.String(2), nullable=True)
+    zip5 = db.Column(db.String(5), nullable=True)
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     yelp_url = db.Column(db.String(2000), nullable=False)
@@ -131,7 +131,7 @@ def seed(app):
 
     rest = Restaurant(yelp_location_id='comebuy-drinks-redwood-city',
                       name='Comebuy Drinks',
-                      street_address='2074 Broadway',
+                      display_address='2074 Broadway',
                       city='Redwood City',
                       state='CA',
                       zip5='94063',
