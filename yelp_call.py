@@ -103,14 +103,14 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
     return response
 
 
-def save_restaurants(response, limit=1):
+def save_restaurants(response):
     """Takes in response dictionary, saves restaurants to the DB."""
 
     # FIXME: will need to account for duplicates: if a restaurant is already in 
     # the db (match on yelp id), you'll need to update the existing entry rather
     # than creating a new one (probably an if statement first)
 
-    for i in range(limit):
+    for i in range(len(response['businesses'])):
         # pull the items out of the response for a given restaurant
         index_alias = response['businesses'][i]
 
