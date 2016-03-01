@@ -199,22 +199,26 @@ def show_profile():
 def add_to_favorites():
     """Add a favorite restaurant for a user"""
 
-    yelp_location_id = request.form.get("yelp_id")
-    user_id = session["user_id"]
+    # yelp_location_id = request.form.get("yelp_id")
+    # user_id = session["user_id"]
 
     # FIXME: hardcoded values for testing:
-    # yelp_location_id = 'gong-cha-palo-alto'
-    # user_id = 1
+    yelp_location_id = 'one-plus-tea-house-san-francisco-3'
+    user_id = 1
 
-    # use the yelp_location_id to get the restaurant_id from the db
-    restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).first()
-    restaurant_id = restaurant_id[0]
-    # FIXME will need to actually be limiting duplicates in restaurants for this to work
-    restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).one()
+    # # use the yelp_location_id to get the restaurant_id from the db
+    # restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).first()
+    # restaurant_id = restaurant_id[0]
+    # # FIXME will need to actually be limiting duplicates in restaurants for this to work
+    # restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).one()
+
+    # # create a new favorites entry for that user-restaurant combo
+    # new_favorite = Favorite_Restaurant(user_id=user_id,
+    #                                    restaurant_id=restaurant_id)
 
     # create a new favorites entry for that user-restaurant combo
     new_favorite = Favorite_Restaurant(user_id=user_id,
-                                       restaurant_id=restaurant_id)
+                                       yelp_location_id=yelp_location_id)
 
     db.session.add(new_favorite)
     db.session.commit()
