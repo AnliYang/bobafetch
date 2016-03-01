@@ -44,8 +44,8 @@ class Restaurant(db.Model):
 
     __tablename__ = "restaurants"
 
-    restaurant_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    yelp_location_id = db.Column(db.String(500), nullable=False)
+    # restaurant_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    yelp_location_id = db.Column(db.String(500), nullable=False, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     # address = db.Column(db.String(200), nullable=False)
     display_address = db.Column(db.String(500), nullable=False)
@@ -75,7 +75,8 @@ class Favorite_Restaurant(db.Model):
 
     favorite_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
+    # restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
+    yelp_location_id = db.Column(db.String(500), db.ForeignKey('restaurants.yelp_location_id'), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -83,7 +84,8 @@ class Favorite_Restaurant(db.Model):
 
         return "<favorite_id=%s: user %s favorited restaurant %s>" % (self.favorite_id,
                                                                       self.user_id,
-                                                                      self.restaurant_id)
+                                                                      # self.restaurant_id
+                                                                      self.yelp_location_id)
 
 
 class Visited_Restaurant(db.Model):
@@ -95,7 +97,8 @@ class Visited_Restaurant(db.Model):
 
     visit_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
+    # restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
+    yelp_location_id = db.Column(db.String(500), db.ForeignKey('restaurants.yelp_location_id'), nullable=False)
     distance_miles = db.Column(db.Float, nullable=False)
     running_time_minutes = db.Column(db.Integer, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
@@ -105,7 +108,8 @@ class Visited_Restaurant(db.Model):
 
         return "<visitor_id=%s: user %s visited restaurant %s>" % (self.visit_id,
                                                                    self.user_id,
-                                                                   self.restaurant_id)
+                                                                   # self.restaurant_id
+                                                                   self.yelp_location_id)
 
 
 ##############################################################################
@@ -145,15 +149,15 @@ def seed(app):
                       review_count=39)
     print "rest created"
 
-    fav = Favorite_Restaurant(user_id=1,
-                              restaurant_id=1)
-    print "fav created"
+    # fav = Favorite_Restaurant(user_id=1,
+    #                           restaurant_id=1)
+    # print "fav created"
 
-    vis = Visited_Restaurant(user_id=1,
-                             restaurant_id=1,
-                             distance_miles=3.20,
-                             running_time_minutes=30)
-    print "vis created"
+    # vis = Visited_Restaurant(user_id=1,
+    #                          restaurant_id=1,
+    #                          distance_miles=3.20,
+    #                          running_time_minutes=30)
+    # print "vis created"
 
     db.session.add(anli)
     db.session.add(rest)
@@ -162,11 +166,11 @@ def seed(app):
     db.session.commit()
     print "anli and rest committed"
 
-    db.session.add(fav)
-    db.session.add(vis)
-    print "fav and vis added to db"
-    db.session.commit()
-    print "fav and vis committed!"
+    # db.session.add(fav)
+    # db.session.add(vis)
+    # print "fav and vis added to db"
+    # db.session.commit()
+    # print "fav and vis committed!"
 
     # to reseed:
     # in terminal:
