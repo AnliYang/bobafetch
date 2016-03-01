@@ -115,15 +115,15 @@ def save_restaurants(response, limit=1):
         index_alias = response['businesses'][i]
 
         name = index_alias['name']
-        street_address = index_alias['location']['address']
+        display_address = index_alias['location']['display_address']
 
         # print "*" * 50
         # print "type for street address going into the db"
-        # print type(street_address)
+        # print type(display_address)
 
-        city = index_alias['location']['city']
-        state = index_alias['location']['state_code']
-        zip5 = index_alias['location']['postal_code']
+        # city = index_alias['location']['city']
+        # state = index_alias['location']['state_code']
+        # zip5 = index_alias['location']['postal_code']
         coordinates = index_alias['location']['coordinate']
         yelp_url = index_alias['url']
         image_url = index_alias['image_url']
@@ -136,10 +136,10 @@ def save_restaurants(response, limit=1):
         # instantiate the Restaurant object
         new_restaurant = Restaurant(yelp_location_id=yelp_location_id,
                                     name=name,
-                                    street_address=street_address,
-                                    city=city,
-                                    state=state,
-                                    zip5=zip5,
+                                    display_address=display_address,
+                                    # city=city,
+                                    # state=state,
+                                    # zip5=zip5,
                                     latitude=coordinates['latitude'],
                                     longitude=coordinates['longitude'],
                                     yelp_url=yelp_url,
