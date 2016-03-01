@@ -199,12 +199,12 @@ def show_profile():
 def add_to_favorites():
     """Add a favorite restaurant for a user"""
 
-    # yelp_location_id = request.form.get("yelp_id")
-    # user_id = session["user_id"]
+    yelp_location_id = request.form.get("yelp_id")
+    user_id = session["user_id"]
 
     # FIXME: hardcoded values for testing:
-    yelp_location_id = 'one-plus-tea-house-san-francisco-3'
-    user_id = 1
+    # yelp_location_id = 'one-plus-tea-house-san-francisco-3'
+    # user_id = 1
 
     # # use the yelp_location_id to get the restaurant_id from the db
     # restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).first()

@@ -133,25 +133,35 @@ def save_restaurants(response):
         review_count = index_alias['review_count']
         yelp_location_id = index_alias['id']
 
-        # instantiate the Restaurant object
-        new_restaurant = Restaurant(yelp_location_id=yelp_location_id,
-                                    name=name,
-                                    display_address=display_address,
-                                    # city=city,
-                                    # state=state,
-                                    # zip5=zip5,
-                                    latitude=coordinates['latitude'],
-                                    longitude=coordinates['longitude'],
-                                    yelp_url=yelp_url,
-                                    image_url=image_url,
-                                    mobile_url=mobile_url,
-                                    rating=rating,
-                                    rating_img_url=rating_img_url,
-                                    review_count=review_count)
+        existing_restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==yelp_location_id).all()
 
-        # add to the db and commit!
-        db.session.add(new_restaurant)
-        db.session.commit()
+        if existing_restaurant:
+            print existing_restaurant
+            print len(existing_restaurant)
+            print existing_restaurant[0].yelp_location_id
+            print "it's totally already in there."
+            # FIXME would ideally update with new restaurant location
+
+        else:
+            # instantiate the Restaurant object
+            new_restaurant = Restaurant(yelp_location_id=yelp_location_id,
+                                        name=name,
+                                        display_address=display_address,
+                                        # city=city,
+                                        # state=state,
+                                        # zip5=zip5,
+                                        latitude=coordinates['latitude'],
+                                        longitude=coordinates['longitude'],
+                                        yelp_url=yelp_url,
+                                        image_url=image_url,
+                                        mobile_url=mobile_url,
+                                        rating=rating,
+                                        rating_img_url=rating_img_url,
+                                        review_count=review_count)
+
+            # add to the db and commit!
+            db.session.add(new_restaurant)
+            db.session.commit()
 
 
 def convert_response():
