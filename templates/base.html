@@ -21,8 +21,8 @@
   <div>Header
     <span>Profile/User Page</span>
     <span>Run for Boba! (Generate a route)</span>
-    <span>if not logged in: Signup/Login</span>
-    <span>if logged in: Log out!</span>
+    <span>if not logged in: <a href="/signup">Signup</a>/<a href="/login">Login</a></span>
+    <span>if logged in: <a href="/logout">Log out!</a></span>
   </div>
   <hr>
   {% with messages = get_flashed_messages() %}

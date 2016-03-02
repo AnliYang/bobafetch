@@ -1,6 +1,6 @@
 """BobaFetch: Running for bubble tea!"""
 
-from jinja2 import StrictUndefined
+import jinja2 as jinja
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
@@ -18,7 +18,7 @@ app.secret_key = "ALLOFTHEBOBAAREMINE"
 
 # Letting Jinja help me by raising an error upon use of an
 # undefined variable, as opposed to letting it fail silently on me
-app.jinja_env.undefined = StrictUndefined
+app.jinja_env.undefined = jinja.StrictUndefined
 
 
 @app.route('/')
@@ -27,69 +27,69 @@ def index():
 
     return render_template('landing.html')
 
+# old result page (single result)
+# @app.route('/search', methods=["POST"])
+# def search():
+    # '''Searches for restaurant and running route results.'''
 
-@app.route('/search', methods=["POST"])
-def search():
-    '''Searches for restaurant and running route results.'''
+    # # send requests to the Yelp API
+    # # parse results from the Yelp API
+    # # pass results to template and Google Maps API
+    # # yelp_string = open('scratch/scratch.json').read()
+    # # yelp_dict = json.loads(yelp_string)
 
-    # send requests to the Yelp API
-    # parse results from the Yelp API
-    # pass results to template and Google Maps API
-    # yelp_string = open('scratch/scratch.json').read()
-    # yelp_dict = json.loads(yelp_string)
+    # user_address = request.form.get("address")
 
-    user_address = request.form.get("address")
+    # user_latitude = request.form.get("latitude")
+    # user_longitude = request.form.get("longitude")
 
-    user_latitude = request.form.get("latitude")
-    user_longitude = request.form.get("longitude")
+    # # FIXME: get the other inputs from the form: time available and running speed
+    # time_available = request.form.get("time-available")
+    # time_available = int(time_available)
 
-    # FIXME: get the other inputs from the form: time available and running speed
-    time_available = request.form.get("time-available")
-    time_available = int(time_available)
+    # running_speed = request.form.get("running-speed")
+    # running_speed = int(running_speed)
 
-    running_speed = request.form.get("running-speed")
-    running_speed = int(running_speed)
+    # # yelp_dict = yelp_call.request_restaurants(user_address)
+    # yelp_dict = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
 
-    # yelp_dict = yelp_call.request_restaurants(user_address)
-    yelp_dict = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
+    # if yelp_dict['total'] > 0:
+    #     index_alias = yelp_dict['businesses'][0]
 
-    if yelp_dict['total'] > 0:
-        index_alias = yelp_dict['businesses'][0]
+    #     name = index_alias['name']
+    #     # note: this address is in the form of a list.
+    #     # this is the form currently being used by the results page
+    #     display_address = index_alias['location']['display_address']
+    #     # note: this set of address info is broken out by line.
+    #     # adding these variables into to use for STORING the adddress in db
+    #     display_address = index_alias['location']['address']
+    #     city = index_alias['location']['city']
+    #     state = index_alias['location']['state_code']
+    #     zip5 = index_alias['location']['postal_code']
 
-        name = index_alias['name']
-        # note: this address is in the form of a list.
-        # this is the form currently being used by the results page
-        display_address = index_alias['location']['display_address']
-        # note: this set of address info is broken out by line.
-        # adding these variables into to use for STORING the adddress in db
-        display_address = index_alias['location']['address']
-        city = index_alias['location']['city']
-        state = index_alias['location']['state_code']
-        zip5 = index_alias['location']['postal_code']
+    #     coordinates = index_alias['location']['coordinate']
+    #     yelp_url = index_alias['url']
+    #     image = index_alias['image_url']
+    #     mobile_url = index_alias['mobile_url']
+    #     rating = index_alias['rating']
+    #     rating_img_url = index_alias['rating_img_url']
+    #     review_count = index_alias['review_count']
+    #     yelp_id = index_alias['id']
 
-        coordinates = index_alias['location']['coordinate']
-        yelp_url = index_alias['url']
-        image = index_alias['image_url']
-        mobile_url = index_alias['mobile_url']
-        rating = index_alias['rating']
-        rating_img_url = index_alias['rating_img_url']
-        review_count = index_alias['review_count']
-        yelp_id = index_alias['id']
-
-        return render_template('results.html', name=name,
-                                               address=display_address,
-                                               yelp_url=yelp_url,
-                                               rating=rating,
-                                               rating_img_url=rating_img_url,
-                                               review_count=review_count,
-                                               image=image,
-                                               coordinates=coordinates,
-                                               user_address=user_address,
-                                               user_latitude=user_latitude,
-                                               user_longitude=user_longitude,
-                                               yelp_id=yelp_id)
-    else:
-        return render_template('no_results.html')
+    #     return render_template('old_results.html', name=name,
+    #                                            address=display_address,
+    #                                            yelp_url=yelp_url,
+    #                                            rating=rating,
+    #                                            rating_img_url=rating_img_url,
+    #                                            review_count=review_count,
+    #                                            image=image,
+    #                                            coordinates=coordinates,
+    #                                            user_address=user_address,
+    #                                            user_latitude=user_latitude,
+    #                                            user_longitude=user_longitude,
+    #                                            yelp_id=yelp_id)
+    # else:
+    #     return render_template('no_results.html')
 
 # got this from Ratings, but unclear why I need to specify the GET method for the form route?
 @app.route('/signup', methods=['GET'])
@@ -172,11 +172,39 @@ def logout():
 
 
 # route for showing multiple results
-@app.route('/results')
+@app.route('/results', methods=['POST'])
 def show_results():
     """Shows restaurant search results."""
 
-    pass
+    # make the yelp call, get the list of restaurant_ids back
+    # use the list of restaurants to make call to DB, get list of dictionaries back
+    # jsonify the list of dictionaries to send to the results page
+
+    user_address = request.form.get("address")
+
+    user_latitude = request.form.get("latitude")
+    user_longitude = request.form.get("longitude")
+
+    time_available = request.form.get("time-available")
+    time_available = int(time_available)
+
+    running_speed = request.form.get("running-speed")
+    running_speed = int(running_speed)
+
+    yelp_location_ids = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
+
+    restaurants = get_restaurants_from_db(yelp_location_ids)
+    # for restaurant in restaurants:
+    #     print restaurant.name
+
+    restaurants_range = range(len(restaurants))
+
+    if restaurants:
+        return render_template('results.html', restaurants=restaurants, 
+                                               restaurants_range=restaurants_range)
+
+    else:
+        return render_template('no_results.html')
 
 
 # route after someone clicks "Map it" to show directions to a particular restaurant
@@ -268,24 +296,28 @@ def get_restaurants_from_db(list_of_yelp_ids):
     restaurants = []
 
     for id in list_of_yelp_ids:
-        restaurant = {}
+        # restaurant = {}
 
-        restaurant['name'] = db.session.query(Restaurant.name).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['display_address'] = db.session.query(Restaurant.display_address).filter(Restaurant.yelp_location_id==id).first()
-        print "*" * 50
-        print "street address type coming out of the db:"
-        print type(restaurant['display_address'])
-        restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['yelp_url'] = db.session.query(Restaurant.yelp_url).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['rating'] = db.session.query(Restaurant.rating).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['rating_img_url'] = db.session.query(Restaurant.rating_img_url).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['yelp_id'] = id
+        # restaurant['name'] = db.session.query(Restaurant.name).filter(Restaurant.yelp_location_id==id).one()
+        # restaurant['display_address'] = db.session.query(Restaurant.display_address).filter(Restaurant.yelp_location_id==id).one()
+        # # print "*" * 50
+        # # print "street address type coming out of the db:"
+        # # print type(restaurant['display_address'])
+        # # restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
+        # # restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
+        # # restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()
+        # restaurant['image_url'] = db.session.query(Restaurant.image_url).filter(Restaurant.yelp_location_id==id).one()
+        # restaurant['yelp_url'] = db.session.query(Restaurant.yelp_url).filter(Restaurant.yelp_location_id==id).one()
+        # restaurant['review_count'] = db.session.query(Restaurant.review_count).filter(Restaurant.yelp_location_id==id).one()
+        # restaurant['rating'] = db.session.query(Restaurant.rating).filter(Restaurant.yelp_location_id==id).one()
+        # restaurant['rating_img_url'] = db.session.query(Restaurant.rating_img_url).filter(Restaurant.yelp_location_id==id).one()
+        # restaurant['yelp_id'] = id
 
-        restaurant['latitude'] = db.session.query(Restaurant.latitude).filter(Restaurant.yelp_location_id==id).first()
-        restaurant['longitude'] = db.session.query(Restaurant.longitude).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant[coordinates] =
+        # restaurant['latitude'] = db.session.query(Restaurant.latitude).filter(Restaurant.yelp_location_id==id).one()
+        # restaurant['longitude'] = db.session.query(Restaurant.longitude).filter(Restaurant.yelp_location_id==id).one()
+        # # restaurant[coordinates] =
+
+        restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==id).one()
 
         restaurants.append(restaurant)
 

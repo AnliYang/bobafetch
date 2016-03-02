@@ -98,9 +98,11 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
     finally:
         conn.close()
 
-    save_restaurants(response)
+    yelp_location_ids = save_restaurants(response)
 
-    return response
+    # should return a list of the yelp_location_ids, which is the primary key for restaurants table
+    # return response
+    return yelp_location_ids
 
 
 def save_restaurants(response):
@@ -109,6 +111,7 @@ def save_restaurants(response):
     # FIXME: will need to account for duplicates: if a restaurant is already in 
     # the db (match on yelp id), you'll need to update the existing entry rather
     # than creating a new one (probably an if statement first)
+    yelp_location_ids = []
 
     for i in range(len(response['businesses'])):
         # pull the items out of the response for a given restaurant
@@ -131,14 +134,16 @@ def save_restaurants(response):
         rating = index_alias['rating']
         rating_img_url = index_alias['rating_img_url']
         review_count = index_alias['review_count']
+        
         yelp_location_id = index_alias['id']
+        yelp_location_ids.append(yelp_location_id)
 
         existing_restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==yelp_location_id).all()
 
         if existing_restaurant:
-            print existing_restaurant
-            print len(existing_restaurant)
-            print existing_restaurant[0].yelp_location_id
+            # print existing_restaurant
+            # print len(existing_restaurant)
+            # print existing_restaurant[0].yelp_location_id
             print "it's totally already in there."
             # FIXME would ideally update with new restaurant location
 
@@ -162,6 +167,8 @@ def save_restaurants(response):
             # add to the db and commit!
             db.session.add(new_restaurant)
             db.session.commit()
+
+    return yelp_location_ids
 
 
 def convert_response():

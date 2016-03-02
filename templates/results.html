@@ -1,32 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
 <p>Results Page Here</p>
-<div data-yelpid="{{ yelp_id }}">Yelp Result
-    <div>Name: {{ name }}</div>
-    <div><img src={{ image }}></div>
-    <div>
-        {% for line in address %}
-            {{ line }}
-            <br>
-        {% endfor %}
-    </div>
-    <div>Average Rating: {{ rating }}</div>
-    <div><img src={{ rating_img_url }}></div>
-    <div>(based on {{ review_count }} reviews)</div>
-    <div><a href="{{ yelp_url }}">View on Yelp</a></div>
-</div>
-
+<!-- <br>restaurants: list of dictionaries
+<br>{{ restaurants }}
+<br>
+<br>restaurants range: 
+<br>{{ restaurants_range }}
+<br>
+    {% for index in restaurants_range %}
+        <div>
+            {{ index }}
+        </div>
+    {% endfor %}
 <br><br>
-<!-- 
-<div id="map" data-lat="{{ coordinates['latitude'] }}" data-lng="{{ coordinates['longitude'] }}">Map Result
-</div>
-<div id="map warnings">ADD WALKING WARNINGS HERE, REQUIRED BY GOOGLE</div>
+    {% for index in restaurants_range %}
+        <br>
+        <div>
+            {{ restaurants[index] }}
+        </div>
+    {% endfor %} -->
+<div id="results" data-restaurants="{{ restaurants }}" data-range="{{ restaurants_range }}"></div>
+<br><br>
+<!-- you may need to set restaurants as variable in jinja -->
+    {% if restaurants %}
+        {% for restaurant in restaurants %}
+            <br>
+            <div>Name: {{ restaurant.name }}</div>
+            <div><img src={{ restaurant.image_url }}></div>
+<!--             <div>
+                {% for line in restaurant.display_address %}
+                    {{ line }}<br>
+                {% endfor %}
+            </div> -->
+            <div>Average Rating: {{ restaurant.rating }}</div>
+            <div><img src={{ restaurant.rating_img_url }}></div>
+            <div>(based on {{ restaurant.review_count }} reviews)</div>
+            <div><a href="{{ restaurant.yelp_url }}">View on Yelp</a></div>
+        {% endfor %}
+    {% endif %}
 
-<script src="static/js/boba.js"></script> -->
+<script src="static/js/results.js"></script>
 
-<!-- this seems like way too many data attributes, no? -->
-<div id="map" style="float:left" data-startaddress="{{ user_address }}" data-startlat="{{ user_latitude }}" data-startlng="{{ user_longitude }}" data-endlat="{{ coordinates['latitude'] }}" data-endlng="{{ coordinates['longitude'] }}"></div>
-<div id="directionsPanel" style="float:right; height 100%"></div>
-
-<script src="static/js/boba.js"></script>
 {% endblock %}
