@@ -101,8 +101,8 @@ class Visited_Restaurant(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     # restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
     yelp_location_id = db.Column(db.String(500), db.ForeignKey('restaurants.yelp_location_id'), nullable=False)
-    distance_miles = db.Column(db.Float, nullable=False)
-    running_time_minutes = db.Column(db.Integer, nullable=False)
+    distance_miles = db.Column(db.Float, nullable=True)
+    running_time_minutes = db.Column(db.Integer, nullable=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):

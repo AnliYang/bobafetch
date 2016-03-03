@@ -1,27 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <p>Results Page Here</p>
-<!-- <br>restaurants: list of dictionaries
-<br>{{ restaurants }}
-<br>
-<br>restaurants range: 
-<br>{{ restaurants_range }}
-<br>
-    {% for index in restaurants_range %}
-        <div>
-            {{ index }}
-        </div>
-    {% endfor %}
+<div id="results" data-restaurants="{{ restaurants }}"></div>
 <br><br>
-    {% for index in restaurants_range %}
-        <br>
-        <div>
-            {{ restaurants[index] }}
-        </div>
-    {% endfor %} -->
-<div id="results" data-restaurants="{{ restaurants }}" data-range="{{ restaurants_range }}"></div>
-<br><br>
-<!-- you may need to set restaurants as variable in jinja -->
     {% if restaurants %}
         {% for restaurant in restaurants %}
             <br>
@@ -40,6 +21,7 @@
                     <input type="hidden" name="user-address" value="{{ user_address }}">
                     <input type="hidden" name="user-lat" value="{{ user_latitude }}">
                     <input type="hidden" name="user-lng" value="{{ user_longitude }}">
+                    <input type="hidden" name="run-speed" value="{{ running_speed }}">
                     <input type="submit" value="Map It!">
                 </form>
             </div>

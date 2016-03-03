@@ -62,6 +62,13 @@ function showMap() {
 google.maps.event.addDomListener(window, 'load', showMap);
 
 
+// function to calculate runtime with running speed
+var runSpeed = mapElement.dataset.runspd;
+
+// function to calculate total distance (Google distance * 2)
+// var distance = ;
+
+
 // for error case when no yelp results are returned
 // function initPlainMap() {
 

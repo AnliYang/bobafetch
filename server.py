@@ -205,7 +205,8 @@ def show_results():
                                                # restaurants_range=restaurants_range, 
                                                user_address=user_address,
                                                user_latitude=user_latitude,
-                                               user_longitude=user_longitude)
+                                               user_longitude=user_longitude, 
+                                               running_speed=running_speed)
 
     else:
         return render_template('no_results.html')
@@ -218,24 +219,20 @@ def show_map():
 
     # user_address, user_latitude, user_longitude, coordinates['latitude'], coordinates['longitude']
     yelp_location_id = request.form.get("yelp-id")
-    print yelp_location_id
-    print "*" * 50
     user_address = request.form.get("user-address")
     user_latitude = request.form.get("user-lat")
     user_longitude = request.form.get("user-lng")
-    print user_longitude
-    print "*" * 50
+    running_speed = request.form.get("run-speed")
 
     restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==yelp_location_id).one()
     # restaurant_latitude = restaurant.latitude
     # restaurant_longitude = restaurant.longitude
-    print restaurant
-    print "*" * 50
 
     return render_template("map.html", user_address=user_address,
                                        user_latitude=user_latitude,
                                        user_longitude=user_longitude,
-                                       restaurant=restaurant)
+                                       restaurant=restaurant, 
+                                       running_speed=running_speed)
 
 
 # route for profile page (when someone clicks Profile in header)
@@ -250,7 +247,7 @@ def show_profile():
 def add_to_favorites():
     """Add a favorite restaurant for a user"""
 
-    yelp_location_id = request.form.get("yelp_id")
+    yelp_location_id = request.form.get("yelp-id")
     user_id = session["user_id"]
 
     # FIXME: hardcoded values for testing:
@@ -275,20 +272,22 @@ def add_to_favorites():
     db.session.commit()
 
     # send back success and an id to update the page to indicate action completed
-    # return jsonify(status="success", id=yelp_location_id)
+    return jsonify(status="success", id=yelp_location_id)
 
 @app.route("/add-to-visited", methods=["POST"])
 def add_to_visited():
     """Add a visited restaurant for a user"""
 
-    yelp_location_id = request.form.get("yelp_id")
-    # get the user id from the session?
+    yelp_location_id = request.form.get("yelp-id")
+    user_id = session["user_id"]
 
-    # use the yelp_location_id to get the restaurant_id from the db
-    # create a new visited_restaurants entry for that user-restaurant combo
+    new_visit = Visited_Restaurant(user_id=user_id,
+                                       yelp_location_id=yelp_location_id)
 
-    # send back success and an id to update the page to indicate action completed
-    return jsonify(status="success", id=yelp_id)
+    db.session.add(new_visit)
+    db.session.commit()
+
+    return jsonify(status="success", id=yelp_location_id)
 
 
 # route for user's list of favorite restaurants
