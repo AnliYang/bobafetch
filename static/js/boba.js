@@ -22,17 +22,23 @@ $(function (){
 });
 
 $(function (){
-    function addToVisited(evt){
-        var yelpId = this.name;
-        $.post("/add-to-visited", {'yelp-id': yelpId}, addToVisitedSuccess);
+    function checkForVisited(evt){
+        var yelpId = $('#visited').attr('name');
+        $.post("/checkForVisited", {'yelp-id': yelpId}, VisitedSuccess);
     }
 
-    function addToVisitedSuccess(result){
+    function addToVisited(evt){
+        var yelpId = this.name;
+        $.post("/add-to-visited", {'yelp-id': yelpId}, VisitedSuccess);
+    }
+
+    function VisitedSuccess(result){
         console.log(result.status);
         // var yelpId = result.id;
         $('#visited').css('color', 'blue'); // give our user some feedback
     }
 
+    $(window).load(checkForVisited);
     $('#visited').click(addToVisited);
 });
 

@@ -317,6 +317,27 @@ def check_for_favorite():
         return jsonify(status="success", id=yelp_location_id)
 
 
+@app.route("/checkForVisited", methods=["POST"])
+def check_for_visited():
+    """Check for a visited restaurant for a user"""
+
+    print "CHECKING FOR Visited NOWWWWWW"
+
+    yelp_location_id = request.form.get("yelp-id")
+    user_id = session["user_id"]
+
+    print "yelp_location_id =", yelp_location_id
+    print "user_id =", user_id
+
+    visited = db.session.query(Visited_Restaurant).filter(Visited_Restaurant.yelp_location_id==yelp_location_id,
+                                                            Visited_Restaurant.user_id==user_id).all()
+
+    print "visited = ", visited
+
+    if visited:
+    # send back success and an id to update the page to indicate action completed
+        return jsonify(status="success", id=yelp_location_id)
+
 # route for user's list of favorite restaurants
 @app.route("/favorite-restaurants")
 def display_favorites():
