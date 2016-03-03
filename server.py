@@ -247,8 +247,13 @@ def show_profile():
 def add_to_favorites():
     """Add a favorite restaurant for a user"""
 
+    print "ADDING FAVORITE NOWWWWWWWW"
+
     yelp_location_id = request.form.get("yelp-id")
     user_id = session["user_id"]
+
+    print "yelp_location_id =", yelp_location_id
+    print "user_id =", user_id
 
     # FIXME: hardcoded values for testing:
     # yelp_location_id = 'one-plus-tea-house-san-francisco-3'
@@ -288,6 +293,28 @@ def add_to_visited():
     db.session.commit()
 
     return jsonify(status="success", id=yelp_location_id)
+
+
+@app.route("/check-for-favorite", methods=["POST"])
+def check_for_favorite():
+    """Check for a favorite restaurant for a user"""
+
+    print "CHECKING FOR FAVORITES NOWWWWWW"
+
+    yelp_location_id = request.form.get("yelp-id")
+    user_id = session["user_id"]
+
+    print "yelp_location_id =", yelp_location_id
+    print "user_id =", user_id
+
+    favorite = db.session.query(Favorite_Restaurant).filter(Favorite_Restaurant.yelp_location_id==yelp_location_id,
+                                                            Favorite_Restaurant.user_id==user_id).all()
+
+    print "favorite = ", favorite
+
+    if favorite:
+    # send back success and an id to update the page to indicate action completed
+        return jsonify(status="success", id=yelp_location_id)
 
 
 # route for user's list of favorite restaurants

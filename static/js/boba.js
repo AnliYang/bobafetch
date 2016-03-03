@@ -1,16 +1,23 @@
 // jquery shortcut for document.ready()
 $(function (){
-    function addToFavorites(evt){
-        var yelpId = this.name;
-        $.post("/add-to-favorites", {'yelp-id': yelpId}, addToFavoritesSuccess);
+    function checkForFavorite(evt){
+        var favoriteButton = $('#favorite');
+        var yelpId = favoriteButton.attr('name');
+        $.post("/check-for-favorite", {'yelp-id': yelpId}, FavoritesSuccess);
     }
 
-    function addToFavoritesSuccess(result){
+    function addToFavorites(evt){
+        var yelpId = this.name;
+        $.post("/add-to-favorites", {'yelp-id': yelpId}, FavoritesSuccess);
+    }
+
+    function FavoritesSuccess(result){
         console.log(result.status);
         // var yelpId = result.id;
         $('#favorite').css('color', 'red'); // give our user some feedback
     }
 
+    $(window).load(checkForFavorite);
     $('#favorite').click(addToFavorites);
 });
 
