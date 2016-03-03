@@ -1,18 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>INDIVIDUAL RESTAURANT'S ROUTE (for once I'm showing multiple restaurant results on the results page)</p>
+<p>{{ restaurant.name }}</p>
     <br>{{ restaurant.yelp_location_id }}
     <div>
-        <form action="/add-to-favorites" method="POST">
-            <input type="hidden" name="yelp-id" value="{{ restaurant.yelp_location_id }}">
-            <input type="submit" value="Favorite">
-        </form>
+        <button name="{{ restaurant.yelp_location_id }}" id="favorite">&hearts; Favorite &hearts;</button>
     </div>
     <div>
-        <form action="/add-to-visited" method="POST">
-            <input type="hidden" name="yelp-id" value="{{ restaurant.yelp_location_id }}">
-            <input type="submit" value="Visited">
-        </form>
+        <button name="{{ restaurant.yelp_location_id }}" id="visited">Visited</button>
     </div>
 
 <!-- setting all the map inputs as data attributes for the map item -->

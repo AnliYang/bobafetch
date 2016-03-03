@@ -1,3 +1,37 @@
+// jquery shortcut for document.ready()
+$(function (){
+    function addToFavorites(evt){
+        var yelpId = this.name;
+        $.post("/add-to-favorites", {'yelp-id': yelpId}, addToFavoritesSuccess);
+    }
+
+    function addToFavoritesSuccess(result){
+        console.log(result.status);
+        // var yelpId = result.id;
+        $('#favorite').css('color', 'red'); // give our user some feedback
+    }
+
+    $('#favorite').click(addToFavorites);
+});
+
+$(function (){
+    function addToVisited(evt){
+        var yelpId = this.name;
+        $.post("/add-to-visited", {'yelp-id': yelpId}, addToVisitedSuccess);
+    }
+
+    function addToVisitedSuccess(result){
+        console.log(result.status);
+        // var yelpId = result.id;
+        $('#visited').css('color', 'blue'); // give our user some feedback
+    }
+
+    $('#visited').click(addToVisited);
+});
+
+
+// GOOGLE DIRECTIONS/MAP STUFF BELOW
+
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 // var map;
