@@ -25,17 +25,24 @@
     {% if restaurants %}
         {% for restaurant in restaurants %}
             <br>
-            <div>Name: {{ restaurant.name }}</div>
+            <div>{{ restaurant.name }}</div>
             <div><img src={{ restaurant.image_url }}></div>
-<!--             <div>
-                {% for line in restaurant.display_address %}
-                    {{ line }}<br>
-                {% endfor %}
-            </div> -->
+            <div>{{ restaurant.street1 }}</div>
+            <div>{{ restaurant.city }}, {{ restaurant.state }} {{ restaurant.zip5 }}</div>
             <div>Average Rating: {{ restaurant.rating }}</div>
             <div><img src={{ restaurant.rating_img_url }}></div>
             <div>(based on {{ restaurant.review_count }} reviews)</div>
             <div><a href="{{ restaurant.yelp_url }}">View on Yelp</a></div>
+            <br>
+            <div>
+                <form action="/map" method="POST">
+                    <input type="hidden" name="yelp-id" value="{{ restaurant.yelp_location_id }}">
+                    <input type="hidden" name="user-address" value="{{ user_address }}">
+                    <input type="hidden" name="user-lat" value="{{ user_latitude }}">
+                    <input type="hidden" name="user-lng" value="{{ user_longitude }}">
+                    <input type="submit" value="Map It!">
+                </form>
+            </div>
         {% endfor %}
     {% endif %}
 

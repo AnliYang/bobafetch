@@ -2,5 +2,10 @@
 {% block content %}
 <p>INDIVIDUAL RESTAURANT'S ROUTE (for once I'm showing multiple restaurant results on the results page)</p>
 
-<!-- maybe add a map just centered on their place and marked -->
+<!-- setting all the map inputs as data attributes for the map item -->
+<div id="map" style="float:left" data-startaddress="{{ user_address }}" data-startlat="{{ user_latitude }}" data-startlng="{{ user_longitude }}" data-endlat="{{ restaurant.latitude }}" data-endlng="{{ restaurant.longitude }}"></div>
+<div id="directionsPanel" style="float:right; height 100%"></div>
+
+<script src="static/js/boba.js"></script>
+
 {% endblock %}

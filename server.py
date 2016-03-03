@@ -197,11 +197,15 @@ def show_results():
     # for restaurant in restaurants:
     #     print restaurant.name
 
-    restaurants_range = range(len(restaurants))
+    # FIXME get rid of restaurants_range stuff since not necessary
+    # restaurants_range = range(len(restaurants))
 
     if restaurants:
         return render_template('results.html', restaurants=restaurants, 
-                                               restaurants_range=restaurants_range)
+                                               # restaurants_range=restaurants_range, 
+                                               user_address=user_address,
+                                               user_latitude=user_latitude,
+                                               user_longitude=user_longitude)
 
     else:
         return render_template('no_results.html')
@@ -212,7 +216,26 @@ def show_results():
 def show_map():
     """Shows map route to individual restaurant."""
 
-    return render_template("map.html")
+    # user_address, user_latitude, user_longitude, coordinates['latitude'], coordinates['longitude']
+    yelp_location_id = request.form.get("yelp-id")
+    print yelp_location_id
+    print "*" * 50
+    user_address = request.form.get("user-address")
+    user_latitude = request.form.get("user-lat")
+    user_longitude = request.form.get("user-lng")
+    print user_longitude
+    print "*" * 50
+
+    restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==yelp_location_id).one()
+    # restaurant_latitude = restaurant.latitude
+    # restaurant_longitude = restaurant.longitude
+    print restaurant
+    print "*" * 50
+
+    return render_template("map.html", user_address=user_address,
+                                       user_latitude=user_latitude,
+                                       user_longitude=user_longitude,
+                                       restaurant=restaurant)
 
 
 # route for profile page (when someone clicks Profile in header)

@@ -118,15 +118,38 @@ def save_restaurants(response):
         index_alias = response['businesses'][i]
 
         name = index_alias['name']
-        display_address = index_alias['location']['display_address']
+        # display_address = index_alias['location']['display_address']
 
         # print "*" * 50
         # print "type for street address going into the db"
         # print type(display_address)
 
-        # city = index_alias['location']['city']
-        # state = index_alias['location']['state_code']
-        # zip5 = index_alias['location']['postal_code']
+        street1 = index_alias['location']['address'][0].split('"')[0]
+        # print "street1 type: ", type(street1)
+        # print street1
+        # street2 = 'dummy street 2'
+        # # depending on the length of the street addres, parse it differently
+        # starting_address = index_alias['location']['address']
+        # num_lines = len(starting_address.split(','))
+        # if num_lines == 1:
+        #     street1 = starting_address.split(',')[0].split('{')[1].split('}')[0].split('"')[1]
+        #     print street1
+        #     # if already a string:
+        #     # else:
+        # else:
+        #     if num_lines == 2:
+        #     # only taking the first two, so just differently treating brackets
+        #         if already a string:
+        #         else: 
+        #             street1 = starting_address.split(',')[0].split('{')[1]
+        #             street2 = split(',')[1].split('"')[1]
+        #     else:
+        #         if already a string:
+        #         else: 
+
+        city = index_alias['location']['city']
+        state = index_alias['location']['state_code']
+        zip5 = index_alias['location']['postal_code']
         coordinates = index_alias['location']['coordinate']
         yelp_url = index_alias['url']
         image_url = index_alias['image_url']
@@ -151,10 +174,12 @@ def save_restaurants(response):
             # instantiate the Restaurant object
             new_restaurant = Restaurant(yelp_location_id=yelp_location_id,
                                         name=name,
-                                        display_address=display_address,
-                                        # city=city,
-                                        # state=state,
-                                        # zip5=zip5,
+                                        # display_address=display_address,
+                                        street1=street1,
+                                        # street2=street2,
+                                        city=city,
+                                        state=state,
+                                        zip5=zip5,
                                         latitude=coordinates['latitude'],
                                         longitude=coordinates['longitude'],
                                         yelp_url=yelp_url,
