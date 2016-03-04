@@ -334,11 +334,19 @@ def check_for_visited():
 def display_favorites():
     """Displays page of favorite restaurants."""
 
-    pass
     # grab user_id from session
+    user_id = session["user_id"]
+
     # query the database for that user's favorites
+    favorites = db.session.query(Favorite_Restaurant.yelp_location_id).filter(Favorite_Restaurant.user_id==user_id).all()
     # add the restaurant objects to a list
+
+    # generate a list of restaurants
+    favorites = get_restaurants_from_db(favorites)
+
     # send the list to a favorites page template
+
+    return render_template("favorites.html", favorites=favorites)
 
 
 # route for user's list of trips/routes (visited restaurants)
@@ -346,7 +354,13 @@ def display_favorites():
 def display_visited():
     """Displays page of visited restaurants."""
 
-    pass
+    user_id = session["user_id"]
+
+    visited_restaurants = db.session.query(Visited_Restaurant.yelp_location_id).filter(Visited_Restaurant.user_id==user_id).all()
+
+    visited_restaurants = get_restaurants_from_db(visited_restaurants)
+
+    return render_template("routes_run.html", visited_restaurants=visited_restaurants)
 
 
 def get_restaurants_from_db(list_of_yelp_ids):
