@@ -68,6 +68,7 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
 
     url = 'https://{0}{1}?'.format(API_HOST, urllib.quote(SEARCH_PATH.encode('utf8')))
 
+    # creates a consumer object
     consumer = oauth2.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
 
     # creates a token object
@@ -77,6 +78,7 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
         method="GET", url=url, parameters=url_params)
     # adds more entries to the request dictionary (of parameters for the query, looks like)
 
+    # adds oauth bits to the oauth
     oauth_request.update(
         {
             'oauth_nonce': oauth2.generate_nonce(),
@@ -88,10 +90,13 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
     # hashes sensitive parts of the request
     oauth_request.sign_request(
         oauth2.SignatureMethod_HMAC_SHA1(), consumer, token)
+
     # generates the final url
     signed_url = oauth_request.to_url()
 
+    # open up a connection to the signed_url
     conn = urllib2.urlopen(signed_url, None)
+
     try:
         response = json.loads(conn.read())
         # response = conn.read()

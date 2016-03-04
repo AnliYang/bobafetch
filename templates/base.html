@@ -1,15 +1,11 @@
 <!doctype html>
 <html>
 <head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/boba.css" rel="stylesheet">
   <title>BobaRun!</title>
   <style>
-    input {
-        display: block;
-    }
-    #map {
-        height: 400px;
-        width: 400px;
-    }
+
   </style>
   <script src="https://maps.googleapis.com/maps/api/js"></script>
   <script src="https://code.jquery.com/jquery.js"></script>
@@ -17,25 +13,56 @@
 
 
 <body>
-  <h1>BobaRun!</h1>
-  <div>Header
-    <span>Profile/User Page</span>
-    <span>Run for Boba! (Generate a route)</span>
-    <span>if not logged in: <a href="/signup">Signup</a>/<a href="/login">Login</a></span>
-    <span>if logged in: <a href="/logout">Log out!</a></span>
-  </div>
-  <hr>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-  {% endwith %}
+<div class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+<!--             <img src="/static/img/ubermelon-logo.png"> -->
+            <a class="navbar-brand" href="/">BobaFetch!</a>
+        </div>
 
-  {% block content %} BLOCK CONTENT GOES HERE {% endblock %}
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/cart">
+<!--                         <img class="melon-cart"
+                             src="/static/img/watermelon.png"> -->
+                        My Profile
+                    </a>
+                </li>
+                {% if session.get('user_id') %}
+                <li><a href="/logout">Log Out</a></li>
+                {% else %}
+                <li><a href="/login">Log In</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 
 
+      <div>Header
+        <span>Profile/User Page</span>
+        <span>Run for Boba! (Generate a route)</span>
+        <span>if not logged in: <a href="/signup">Signup</a>/<a href="/login">Login</a></span>
+        <span>if logged in: <a href="/logout">Log out!</a></span>
+      </div> -->
+
+<!--   <h1>BobaRun!</h1>
+  <br>
+  <hr> -->
+<div class="container"> 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %} BLOCK CONTENT GOES HERE {% endblock %}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>

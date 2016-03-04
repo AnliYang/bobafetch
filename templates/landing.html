@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="/results" method="POST">
+<!-- <form action="/results" method="POST">
     <label>Current Location
-        <input type="text" name="address">
+        <input type="text" class="form-control" name="address">
     </label>
     <p>Click the button to get your coordinates.</p>
     <a id="geolocate">Try It</a>
@@ -15,7 +15,32 @@
         <input type="text" name="running-speed" placeholder="running speed in mph"> mph
     </label>
     <br><br><input type="submit" value="Boba me!">
-</form>
+</form> -->
+
+<div class='landing-form'>
+    <form action="/results" method="POST">
+        <div class="form-group">
+            <label for="timeAvailable">Time Available</label>
+            <input type="text" class="form-control" id="timeAvailable" name="time-available"> minutes
+        </div>
+        <div class="form-group">
+            <label for="runningSpeed">Running Speed</label>
+            <input type="text" class="form-control" id="runningSpeed" name="running-speed"> mph
+        </div>
+        <div class="form-group">
+            <label for="address">Current Location</label>
+            <input type="text" class="form-control" id="address" placeholder="ex: 1617 Hess Road, Redwood City, CA 94061" name="address">
+        </div>
+        or, click <a id="geolocate">here</a> to use your browser's coordinates!
+        <div class="form-group">
+            <input type="text" class="form-control" id="latitude" name="latitude" placeholder="latitude">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="longitude" name="longitude" placeholder="longitude">
+        </div>
+        <input type="submit" value="Boba me!">
+    </form>
+</div>
 
 <script src="static/js/landing.js"></script>
 {% endblock %}

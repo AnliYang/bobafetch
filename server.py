@@ -240,34 +240,19 @@ def show_map():
 def show_profile():
     """User profile page"""
 
-    return render_template("profile.html")
+    user_id = session["user_id"]
+
+    user = db.session.query(User).filter(User.user_id==user_id).one()
+
+    return render_template("profile.html", user=user)
 
 
 @app.route("/add-to-favorites", methods=["POST"])
 def add_to_favorites():
     """Add a favorite restaurant for a user"""
 
-    print "ADDING FAVORITE NOWWWWWWWW"
-
     yelp_location_id = request.form.get("yelp-id")
     user_id = session["user_id"]
-
-    print "yelp_location_id =", yelp_location_id
-    print "user_id =", user_id
-
-    # FIXME: hardcoded values for testing:
-    # yelp_location_id = 'one-plus-tea-house-san-francisco-3'
-    # user_id = 1
-
-    # # use the yelp_location_id to get the restaurant_id from the db
-    # restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).first()
-    # restaurant_id = restaurant_id[0]
-    # # FIXME will need to actually be limiting duplicates in restaurants for this to work
-    # restaurant_id = db.session.query(Restaurant.restaurant_id).filter(Restaurant.yelp_location_id==yelp_location_id).one()
-
-    # # create a new favorites entry for that user-restaurant combo
-    # new_favorite = Favorite_Restaurant(user_id=user_id,
-    #                                    restaurant_id=restaurant_id)
 
     # create a new favorites entry for that user-restaurant combo
     new_favorite = Favorite_Restaurant(user_id=user_id,
@@ -316,6 +301,9 @@ def check_for_favorite():
     # send back success and an id to update the page to indicate action completed
         return jsonify(status="success", id=yelp_location_id)
 
+    else:
+        return jsonify(status="")
+
 
 @app.route("/checkForVisited", methods=["POST"])
 def check_for_visited():
@@ -338,12 +326,19 @@ def check_for_visited():
     # send back success and an id to update the page to indicate action completed
         return jsonify(status="success", id=yelp_location_id)
 
+    else:
+        return ""
+
 # route for user's list of favorite restaurants
 @app.route("/favorite-restaurants")
 def display_favorites():
     """Displays page of favorite restaurants."""
 
     pass
+    # grab user_id from session
+    # query the database for that user's favorites
+    # add the restaurant objects to a list
+    # send the list to a favorites page template
 
 
 # route for user's list of trips/routes (visited restaurants)
@@ -354,41 +349,13 @@ def display_visited():
     pass
 
 
-# kept getting error (below) when trying this from yelp_call, so moving here
-# "RuntimeError: application not registered on db instance and no application 
-# bound to current context"
 def get_restaurants_from_db(list_of_yelp_ids):
     """Grab restaurants from DB, returns a list of restaurant dictionaries."""
-
-    # function for use in displaying search results and for future user favorites page
-    # ? jsonify necessary before passing to Jinja template?
 
     restaurants = []
 
     for id in list_of_yelp_ids:
-        # restaurant = {}
-
-        # restaurant['name'] = db.session.query(Restaurant.name).filter(Restaurant.yelp_location_id==id).one()
-        # restaurant['display_address'] = db.session.query(Restaurant.display_address).filter(Restaurant.yelp_location_id==id).one()
-        # # print "*" * 50
-        # # print "street address type coming out of the db:"
-        # # print type(restaurant['display_address'])
-        # # restaurant['city'] = db.session.query(Restaurant.city).filter(Restaurant.yelp_location_id==id).first()
-        # # restaurant['state'] = db.session.query(Restaurant.state).filter(Restaurant.yelp_location_id==id).first()
-        # # restaurant['zip5'] = db.session.query(Restaurant.zip5).filter(Restaurant.yelp_location_id==id).first()
-        # restaurant['image_url'] = db.session.query(Restaurant.image_url).filter(Restaurant.yelp_location_id==id).one()
-        # restaurant['yelp_url'] = db.session.query(Restaurant.yelp_url).filter(Restaurant.yelp_location_id==id).one()
-        # restaurant['review_count'] = db.session.query(Restaurant.review_count).filter(Restaurant.yelp_location_id==id).one()
-        # restaurant['rating'] = db.session.query(Restaurant.rating).filter(Restaurant.yelp_location_id==id).one()
-        # restaurant['rating_img_url'] = db.session.query(Restaurant.rating_img_url).filter(Restaurant.yelp_location_id==id).one()
-        # restaurant['yelp_id'] = id
-
-        # restaurant['latitude'] = db.session.query(Restaurant.latitude).filter(Restaurant.yelp_location_id==id).one()
-        # restaurant['longitude'] = db.session.query(Restaurant.longitude).filter(Restaurant.yelp_location_id==id).one()
-        # # restaurant[coordinates] =
-
         restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==id).one()
-
         restaurants.append(restaurant)
 
     return restaurants

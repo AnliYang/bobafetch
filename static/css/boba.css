@@ -1,0 +1,23 @@
+.nav, .navbar, .navbar-default, .navbar-default, .navbar-inverse, .navbar-static-top {
+}
+
+body { 
+/*    padding-top: 0px; */
+}
+
+input {
+    display: block;
+}
+
+#map {
+    height: 400px;
+    width: 400px;
+}
+
+.form-group{
+
+}
+
+.container .landing-form {
+/*    max-width: 100px;*/
+}

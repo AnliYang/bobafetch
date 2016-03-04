@@ -12,9 +12,11 @@ $(function (){
     }
 
     function FavoritesSuccess(result){
-        console.log(result.status);
-        // var yelpId = result.id;
-        $('#favorite').css('color', 'red'); // give our user some feedback
+        if (result.status === 'success') {
+            console.log(result.status);
+            // var yelpId = result.id;
+            $('#favorite').css('color', 'red'); // give our user some feedback   
+        }
     }
 
     $(window).load(checkForFavorite);
@@ -33,9 +35,11 @@ $(function (){
     }
 
     function VisitedSuccess(result){
-        console.log(result.status);
-        // var yelpId = result.id;
-        $('#visited').css('color', 'blue'); // give our user some feedback
+        if (result.status === 'success') {
+            console.log(result.status);
+            // var yelpId = result.id;
+            $('#visited').css('color', 'blue'); // give our user some feedback
+        }
     }
 
     $(window).load(checkForVisited);
