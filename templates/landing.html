@@ -17,28 +17,38 @@
     <br><br><input type="submit" value="Boba me!">
 </form> -->
 
-<div class='landing-form'>
-    <form action="/results" method="POST">
-        <div class="form-group">
-            <label for="timeAvailable">Time Available</label>
-            <input type="text" class="form-control" id="timeAvailable" name="time-available"> minutes
+<div class="row landing-form">
+    <form class="col-xs-8 col-xs-offset-2" action="/results" method="POST">
+        <div class="row form-group">
+            <div><label for="timeAvailable">Time Available</label></div>
+            <div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
+                <input type="text" class="form-control" id="timeAvailable" name="time-available">minutes
+            </div>
         </div>
-        <div class="form-group">
-            <label for="runningSpeed">Running Speed</label>
-            <input type="text" class="form-control" id="runningSpeed" name="running-speed"> mph
+        <div class="row form-group">
+            <div><label for="runningSpeed">Running or Walking Speed</label></div>
+            <div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5">
+                <input type="text" class="form-control col-xs-3" id="runningSpeed" name="running-speed">mph
+            </div>
         </div>
-        <div class="form-group">
+        <div class="row form-group">
             <label for="address">Current Location</label>
             <input type="text" class="form-control" id="address" placeholder="ex: 1617 Hess Road, Redwood City, CA 94061" name="address">
         </div>
         or, click <a id="geolocate">here</a> to use your browser's coordinates!
-        <div class="form-group">
-            <input type="text" class="form-control" id="latitude" name="latitude" placeholder="latitude">
+        <div class="row form-group">
+            <span class="col-xs-8 col-xs-offset-2 form-inline">
+                <input type="text" class="coordinates form-control" id="latitude" name="latitude" placeholder="latitude">
+            </span>
         </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="longitude" name="longitude" placeholder="longitude">
+        <div class="row form-group">
+            <span class="col-xs-8 col-xs-offset-2 form-inline">
+                <input type="text" class="coordinates form-control" id="longitude" name="longitude" placeholder="longitude">
+            </span>
         </div>
-        <input type="submit" value="Boba me!">
+        <div class="row">
+            <button type="submit" class="btn btn-primary">Show me the boba!</button>
+        </div>
     </form>
 </div>
 

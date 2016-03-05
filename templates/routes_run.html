@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>Restaurants You've Visited</p>
-<br><br>
+<h2>Restaurants You've Visited</h2>
     {% if visited_restaurants %}
         {% for restaurant in visited_restaurants %}
-            <div>{{ restaurant.name }}</div>
+            <hr>
+<!--             <div>Visited on: </div> -->
+            <div class="restaurant-name">{{ restaurant.name }}</div>
             <div><img src={{ restaurant.image_url }}></div>
             <div>{{ restaurant.street1 }}</div>
             <div>{{ restaurant.city }}, {{ restaurant.state }} {{ restaurant.zip5 }}</div>

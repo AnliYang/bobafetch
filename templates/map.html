@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>{{ restaurant.name }}</p>
-    <br>{{ restaurant.yelp_location_id }}
+<div class="restaurant-name">{{ restaurant.name }}</div>
     <div>
         <button name="{{ restaurant.yelp_location_id }}" id="favorite">&hearts; Favorite &hearts;</button>
     </div>

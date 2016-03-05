@@ -1,4 +1,12 @@
+* {
+    font-family: 'Raleway', sans-serif;
+}
+
 .nav, .navbar, .navbar-default, .navbar-default, .navbar-inverse, .navbar-static-top {
+}
+
+body {
+    display: block;
 }
 
 body { 
@@ -9,15 +17,65 @@ input {
     display: block;
 }
 
+label {
+    font-weight: 900;
+}
+
+form {
+    text-align: center;
+
+}
+
+.restaurant-name{
+    font-weight: 900;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 #map {
     height: 400px;
     width: 400px;
 }
 
 .form-group{
+}
 
+.form-control {
+    text-align: center;
 }
 
 .container .landing-form {
 /*    max-width: 100px;*/
+}
+
+.coordinates {
+    text-align: center;
+}
+
+.restaurant {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.rating {
+    font-size: 16px;
+    padding-right: 6px;
+    font-family: 'Droid Sans Mono', monospace;
+}
+
+.rating-star:before {
+    font-size: 16px;
+}
+
+.reviews-users:before {
+   font-size: 16px;
+}
+
+
+.reviews {
+    font-size: 16px;
+    padding-right: 6px;
+    padding-left: 15px;
+    font-family: 'Droid Sans Mono', monospace;
 }

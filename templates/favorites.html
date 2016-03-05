@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>Your Favorite Boba Restaurants</p>
-<br><br>
+<h2>Your Favorite Boba Restaurants</h2>
     {% if favorites %}
         {% for restaurant in favorites %}
-            <div>{{ restaurant.name }}</div>
+            <hr>
+            <div class="restaurant-name">{{ restaurant.name }}</div>
             <div><img src={{ restaurant.image_url }}></div>
             <div>{{ restaurant.street1 }}</div>
             <div>{{ restaurant.city }}, {{ restaurant.state }} {{ restaurant.zip5 }}</div>

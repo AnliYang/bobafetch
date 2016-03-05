@@ -7,8 +7,8 @@ function getLocation() {
 }
 
 function showLoading() {
-    userLat.placeholder = 'loading...'
-    userLng.placeholder = 'loading...'
+    userLat.placeholder = 'fetching...'
+    userLng.placeholder = 'fetching...'
 }
 
 function setPosition(position) {
