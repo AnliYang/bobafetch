@@ -17,55 +17,62 @@
     <br><br><input type="submit" value="Boba me!">
 </form> -->
 <div class="jumbotron">
-    <h1>Hello, world!</h1>
-    <p>RUN FOR BOBAAa. Then run for boba.</p>
+    <div class="container"> 
+        <img class="img-jumbotron" src="/static/bobafetch.png">
+        <h1>BobaFetch!</h1>
+        <p>Explore and enjoy.</p>
+<!-- 
+        BobaFetch provides an easy tool for finding and getting to your new favorite boba shop. Intended for runners and walkers who love bubble tea, this app curates local restaurant results for selecting a restaurant and provides a helpful map and directions for navigating to it. Users can limit their searches based on their running/walking speed and how much time they have available for procuring these delightful drinks. Users can also track their favorite and visited restaurants. -->
+    </div>
 </div>
 
-<div class="row landing-form">
-    <form class="col-xs-8 col-xs-offset-2" action="/results" method="POST">
-        <div class="row form-group">
-            <div class="col-xs-4 col-md-6">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                    <input type="text" class="form-control" id="timeAvailable" name="time-available" placeholder="Time Available"><span class="input-group-addon">minutes</span>
+<div class="container"> 
+    <div class="row landing-form">
+        <form class="col-xs-8 col-xs-offset-2" action="/results" method="POST">
+            <div class="row form-group">
+                <div class="col-xs-4 col-md-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                        <input type="text" class="form-control" id="timeAvailable" name="time-available" placeholder="Time Available"><span class="input-group-addon">minutes</span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-4 col-md-6">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><i class="fa fa-tachometer"></i></span>
-                    <input type="text" class="form-control" id="runningSpeed" name="running-speed" placeholder="Running Speed"><span class="input-group-addon" id="basic-addon2">mph</span>
-                </div>
-            </div>
-        </div>
-        <div class="row form-group form-group-lg">
-            <div class="col-xs-12">
-    <!--                     <label for="address">Current Location</label> -->
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
-                    <input type="text" class="form-control" id="address" placeholder="ex: 1617 Hess Road, Redwood City, CA 94061" name="address">
-                    <div class="input-group-btn">
-                        <a id="geolocate" class="btn btn-default"><i class="fa fa-location-arrow"></i></a>
-                        <button type="submit" class="btn btn-primary">Show me the boba!</button>
+                <div class="col-xs-4 col-md-6">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="fa fa-tachometer"></i></span>
+                        <input type="text" class="form-control" id="runningSpeed" name="running-speed" placeholder="Running Speed"><span class="input-group-addon" id="basic-addon2">mph</span>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row form-group hidden">
-            <span class="col-xs-8 col-xs-offset-2 form-inline">
-                <input type="text" class="coordinates form-control" id="latitude" name="latitude" placeholder="latitude">
-            </span>
-        </div>
-        <div class="row form-group hidden">
-            <span class="col-xs-8 col-xs-offset-2 form-inline">
-                <input type="text" class="coordinates form-control" id="longitude" name="longitude" placeholder="longitude">
-            </span>
-        </div>
-        <div id="progress" class="progress hidden">
-          <div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 100%">
-            <span>Fetching...</span>
-          </div>
-        </div>
-    </form>
+            <div class="row form-group form-group-lg">
+                <div class="col-xs-12">
+        <!--                     <label for="address">Current Location</label> -->
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                        <input type="text" class="form-control" id="address" placeholder="ex: 1617 Hess Road, Redwood City, CA 94061" name="address">
+                        <div class="input-group-btn">
+                            <a id="geolocate" class="btn btn-default"><i class="fa fa-location-arrow"></i></a>
+                            <button type="submit" class="btn btn-primary">Show me the boba!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group hidden">
+                <span class="col-xs-8 col-xs-offset-2 form-inline">
+                    <input type="text" class="coordinates form-control" id="latitude" name="latitude" placeholder="latitude">
+                </span>
+            </div>
+            <div class="row form-group hidden">
+                <span class="col-xs-8 col-xs-offset-2 form-inline">
+                    <input type="text" class="coordinates form-control" id="longitude" name="longitude" placeholder="longitude">
+                </span>
+            </div>
+            <div id="progress" class="progress hidden">
+              <div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 100%">
+                <span>Fetching...</span>
+              </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script src="static/js/landing.js"></script>

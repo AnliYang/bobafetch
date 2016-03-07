@@ -362,6 +362,9 @@ def display_visited():
 
     return render_template("routes_run.html", visited_restaurants=visited_restaurants)
 
+@app.route("/about")
+def display_about():
+    return render_template("about.html")
 
 def get_restaurants_from_db(list_of_yelp_ids):
     """Grab restaurants from DB, returns a list of restaurant dictionaries."""
@@ -376,8 +379,8 @@ def get_restaurants_from_db(list_of_yelp_ids):
 
 if __name__ == "__main__":
 # using the Flask Debug bar, including setting debug = True
-    app.debug = True
-    DebugToolbarExtension(app)
+    # app.debug = True
+    # DebugToolbarExtension(app)
 
     from model import connect_to_db, db
     connect_to_db(app)

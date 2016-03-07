@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Restaurants You've Visited</h2>
+<div class="container"> 
+    <h2>Restaurants You've Visited</h2>
     {% if visited_restaurants %}
         {% for restaurant in visited_restaurants %}
             <hr>
@@ -15,4 +16,5 @@
             <div><a href="{{ restaurant.yelp_url }}">View on Yelp</a></div>
         {% endfor %}
     {% endif %}
+</div>
 {% endblock %}

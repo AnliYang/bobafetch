@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Your Favorite Boba Restaurants</h2>
-    {% if favorites %}
-        {% for restaurant in favorites %}
-            <hr>
-            <div class="restaurant-name">{{ restaurant.name }}</div>
-            <div><img src={{ restaurant.image_url }}></div>
-            <div>{{ restaurant.street1 }}</div>
-            <div>{{ restaurant.city }}, {{ restaurant.state }} {{ restaurant.zip5 }}</div>
-            <div>Average Rating: {{ restaurant.rating }}</div>
-            <div><img src={{ restaurant.rating_img_url }}></div>
-            <div>(based on {{ restaurant.review_count }} reviews)</div>
-            <div><a href="{{ restaurant.yelp_url }}">View on Yelp</a></div>
-        {% endfor %}
-    {% endif %}
+<div class="container"> 
+    <h2>Your Favorite Boba Restaurants</h2>
+        {% if favorites %}
+            {% for restaurant in favorites %}
+                <hr>
+                <div class="restaurant-name">{{ restaurant.name }}</div>
+                <div><img src={{ restaurant.image_url }}></div>
+                <div>{{ restaurant.street1 }}</div>
+                <div>{{ restaurant.city }}, {{ restaurant.state }} {{ restaurant.zip5 }}</div>
+                <div>Average Rating: {{ restaurant.rating }}</div>
+                <div><img src={{ restaurant.rating_img_url }}></div>
+                <div>(based on {{ restaurant.review_count }} reviews)</div>
+                <div><a href="{{ restaurant.yelp_url }}">View on Yelp</a></div>
+            {% endfor %}
+        {% endif %}
+</div>
 {% endblock %}

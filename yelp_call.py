@@ -39,7 +39,7 @@ def get_radius(time_available, running_speed):
     return radius_meters
 
 
-def request_restaurants(user_address, user_latitude, user_longitude, radius=40000, limit=10):
+def request_restaurants(user_address, user_latitude, user_longitude, radius=40000, limit=20):
     """Prepares OAuth authentication and sends the request to the API."""
 
     # FIXME: should break out parameter if/else into its own function

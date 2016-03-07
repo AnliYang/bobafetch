@@ -1,39 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Signup Page (Account Creation)</h1>
+<div class="container"> 
+    <h1>Signup Page (Account Creation)</h1>
 
-<form action="/signup" method="POST">
-    <div>
-        <label>
-            First Name
-            <input type="text" name="firstname">
-        </label>
-    </div>
+    <form action="/signup" method="POST">
+        <div>
+            <label>
+                First Name
+                <input type="text" name="firstname">
+            </label>
+        </div>
 
-    <div>
-        <label>
-            Last Name
-            <input type="text" name="lastname">
-        </label>
-    </div>
+        <div>
+            <label>
+                Last Name
+                <input type="text" name="lastname">
+            </label>
+        </div>
 
-    <div>
-        <label>
-            Email
-            <input type="email" name="email">
-        </label>
-    </div>
+        <div>
+            <label>
+                Email
+                <input type="email" name="email">
+            </label>
+        </div>
 
-    <div>
-        <label>
-            Password
-            <input type="password" name="password">
-        </label>
-    </div>
+        <div>
+            <label>
+                Password
+                <input type="password" name="password">
+            </label>
+        </div>
 
-    <div>
-        <input type="submit" value="Create my account!">
-    </div>
-
-</form>
+        <div>
+            <input type="submit" value="Create my account!">
+        </div>
+    </form>
+</div>
 {% endblock %}

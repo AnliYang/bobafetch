@@ -3,14 +3,35 @@
 }
 
 .nav, .navbar, .navbar-default, .navbar-default, .navbar-inverse, .navbar-static-top {
+    height: 60px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+    background-color: #555555;;
 }
+
+.flashes {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.navbar-brand {
+    padding-top: 20px;
+    font-size: 22px;
+}
+
+.navbar-right {
+    padding-top: 5px;
+    font-size: 18px
+}
+
+/*.container {
+    background-color: #6c826f;
+}*/
 
 body {
+    padding-top: 60px;
     display: block;
-}
-
-body { 
-/*    padding-top: 0px; */
 }
 
 input {
@@ -23,7 +44,29 @@ label {
 
 form {
     text-align: center;
+}
 
+.logo {
+    margin-top: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+.jumbotron {
+    text-align: center
+}
+
+.img-jumbotron {
+    height: 300px;
+    width: 300px;
+}
+
+#results-title {
+    margin-bottom: 20px;
+}
+
+.img-restaurant {
+    padding-top: 10px;
 }
 
 .restaurant-name {
@@ -38,19 +81,20 @@ form {
     margin-top: 0;
 }
 
+#header-map-info {
+    margin-top: 15px;
+}
+
 #map {
     height: 400px;
 }
 
-.form-group{
+#directionsPanel {
+    font-size: 15px;
 }
 
 .form-control {
     text-align: center;
-}
-
-.container .landing-form {
-/*    max-width: 100px;*/
 }
 
 .coordinates {
@@ -63,25 +107,25 @@ form {
 }
 
 .rating {
-    font-size: 16px;
+    font-size: 15px;
     padding-right: 6px;
-    font-family: 'Droid Sans Mono', monospace;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .rating-star:before {
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .reviews-users:before {
-   font-size: 16px;
+   font-size: 15px;
 }
 
 
 .reviews {
-    font-size: 16px;
+    font-size: 15px;
     padding-right: 6px;
     padding-left: 15px;
-    font-family: 'Droid Sans Mono', monospace;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .warnbox-content, .warnbox-c1, .warnbox-c2, .adp-warnbox, .adp-legal {
@@ -94,4 +138,13 @@ form {
 
 .adp-text {
     padding-left: 10px;
+}
+
+.profile-info {
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+.jumbotron .bf-description {
+    font-size: 16px;
 }
