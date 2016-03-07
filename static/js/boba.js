@@ -15,7 +15,9 @@ $(function (){
         if (result.status === 'success') {
             console.log(result.status);
             // var yelpId = result.id;
-            $('#favorite').css('color', 'red'); // give our user some feedback   
+            $('#favorite').addClass('active');
+            $('.btn-favorite').removeClass('btn-default').addClass('btn-danger')
+            $('.favorite-heart').removeClass('fa-heart-o').addClass('fa-heart') // give our user some feedback   
         }
     }
 
@@ -38,7 +40,9 @@ $(function (){
         if (result.status === 'success') {
             console.log(result.status);
             // var yelpId = result.id;
-            $('#visited').css('color', 'blue'); // give our user some feedback
+            $('#visited').addClass('active');
+            $('.btn-visited').removeClass('btn-default').addClass('btn-success');
+            $('.visited-flag').removeClass('fa-flag').addClass('fa-flag-checkered'); // give our user some feedback
         }
     }
 

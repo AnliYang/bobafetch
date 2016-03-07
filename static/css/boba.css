@@ -26,16 +26,20 @@ form {
 
 }
 
-.restaurant-name{
+.restaurant-name {
     font-weight: 900;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
+.restaurant-heading {
+    font-weight: 900;
+    margin-top: 0;
+}
+
 #map {
     height: 400px;
-    width: 400px;
 }
 
 .form-group{
@@ -78,4 +82,16 @@ form {
     padding-right: 6px;
     padding-left: 15px;
     font-family: 'Droid Sans Mono', monospace;
+}
+
+.warnbox-content, .warnbox-c1, .warnbox-c2, .adp-warnbox, .adp-legal {
+    display: none;
+}
+
+.adp-placemark {
+    margin-top: 0 !important;
+}
+
+.adp-text {
+    padding-left: 10px;
 }
