@@ -1,40 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container"> 
-    <h1>Signup Page (Account Creation)</h1>
 
+<div class="container signup"> 
+    <h1 class="row" id="auth-title">Sign up</h1>
     <form action="/signup" method="POST">
-        <div>
-            <label>
-                First Name
-                <input type="text" name="firstname">
+        <div class="row form-group form-group-lg">
+            <label>First Name
+                <input type="text" name="firstname" class="form-control">
             </label>
         </div>
-
-        <div>
-            <label>
-                Last Name
-                <input type="text" name="lastname">
+        <div class="row form-group form-group-lg">
+            <label>Last Name
+                <input type="text" name="lastname" class="form-control">
             </label>
         </div>
-
-        <div>
-            <label>
-                Email
-                <input type="email" name="email">
+        <div class="row form-group form-group-lg">
+            <label>Email
+                <input type="email" name="email" class="form-control">
             </label>
         </div>
-
-        <div>
-            <label>
-                Password
-                <input type="password" name="password">
+        <div class="row form-group form-group-lg">
+            <label>Password
+                <input type="password" name="password" class="form-control">
             </label>
         </div>
-
-        <div>
-            <input type="submit" value="Create my account!">
+        <div class="row form-group form-group-lg">
+        <button type="submit" class="btn btn-primary btn-lg">Create my account!</button>
         </div>
     </form>
 </div>
+
 {% endblock %}

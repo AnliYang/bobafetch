@@ -38,31 +38,23 @@
         </div>
     </div>
 </div>
-<!-- 
 
-      <div>Header
-        <span>Profile/User Page</span>
-        <span>Run for Boba! (Generate a route)</span>
-        <span>if not logged in: <a href="/signup">Signup</a>/<a href="/login">Login</a></span>
-        <span>if logged in: <a href="/logout">Log out!</a></span>
-      </div> -->
-
-<!--   <h1>BobaRun!</h1>
-  <br>
-  <hr> -->
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-    <div class="container">  
-        <ul class="flashes">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
+    <div class="container" id="flash-messaging">  
+        <div class="alert alert-info" role="alert">
+            <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
     <div>
 {% endif %}
 {% endwith %}
 
 {% block content %} BLOCK CONTENT GOES HERE {% endblock %}
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

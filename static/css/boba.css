@@ -15,6 +15,10 @@
     margin-bottom: 0;
 }
 
+#flashes {
+    font-size: 30px;
+}
+
 .navbar-brand {
     padding-top: 20px;
     font-size: 22px;
@@ -40,6 +44,7 @@ input {
 
 label {
     font-weight: 900;
+    font-size: 16px;
 }
 
 form {
@@ -147,4 +152,17 @@ form {
 
 .jumbotron .bf-description {
     font-size: 16px;
+}
+
+
+.login, .signup {
+    text-align: center;
+}
+
+.login form {
+    font-size: 16px;
+}
+
+#auth-title {
+    margin-bottom: 20px;
 }
