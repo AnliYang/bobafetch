@@ -283,13 +283,15 @@ def display_favorites():
     # query the database for that user's favorites
     favorites = db.session.query(Favorite_Restaurant.yelp_location_id).filter(Favorite_Restaurant.user_id==user_id).all()
     # add the restaurant objects to a list
+    print "favorites: ", favorites
 
     # generate a list of restaurants
-    favorites = get_restaurants_from_db(favorites)
+    restaurants = get_restaurants_from_db(favorites)
+    print "restaurants: ", restaurants
 
     # send the list to a favorites page template
 
-    return render_template("favorites.html", favorites=favorites)
+    return render_template("favorites.html", restaurants=restaurants)
 
 
 # route for user's list of trips/routes (visited restaurants)
@@ -301,9 +303,9 @@ def display_visited():
 
     visited_restaurants = db.session.query(Visited_Restaurant.yelp_location_id).filter(Visited_Restaurant.user_id==user_id).all()
 
-    visited_restaurants = get_restaurants_from_db(visited_restaurants)
+    restaurants = get_restaurants_from_db(visited_restaurants)
 
-    return render_template("routes_run.html", visited_restaurants=visited_restaurants)
+    return render_template("visited.html", restaurants=restaurants)
 
 @app.route("/about")
 def display_about():
