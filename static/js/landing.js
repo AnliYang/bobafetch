@@ -1,4 +1,4 @@
-var userLat = document.getElementById("latitude");
+    var userLat = document.getElementById("latitude");
 var userLng = document.getElementById("longitude");
 var userAddress = document.getElementById("address");
 var progressBar = document.getElementById("progress")

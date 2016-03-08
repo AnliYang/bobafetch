@@ -117,7 +117,7 @@ class Visited_Restaurant(db.Model):
 ##############################################################################
 # Helper functions
 
-def connect_to_db(app):
+def connect_to_db(app, database='postgresql:///bobafetch'):
     """Connect the database to Flask app."""
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bobafetch'

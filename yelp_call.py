@@ -225,4 +225,4 @@ def search(user_address, user_latitude, user_longitude, time_available, running_
 
 
 if __name__ == "__main__":
-    request()
+    pass
