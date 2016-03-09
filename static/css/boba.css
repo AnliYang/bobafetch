@@ -15,8 +15,16 @@
     margin-bottom: 0;
 }
 
-#flashes {
-    font-size: 30px;
+#flash-messaging {
+    background-color: #6C826F;
+    width: 100%;
+}
+
+.alert {
+    margin-bottom: 0;
+    border-width: 0;
+    background-color: #6C826F;
+    color: #FFFFFF;
 }
 
 .navbar-brand {
@@ -29,13 +37,25 @@
     font-size: 18px
 }
 
-/*.container {
-    background-color: #6c826f;
-}*/
-
 body {
     padding-top: 60px;
     display: block;
+}
+
+#alanding {
+    padding-top: 0;
+}
+
+#alanding .jumbotron{
+    background-color: #555555;
+}
+
+.jumbotron-alanding {
+    color: #FFFFFF;
+}
+
+#btn-landing-login {
+    color: white;
 }
 
 input {
@@ -59,11 +79,12 @@ form {
 
 .jumbotron {
     text-align: center;
+    background-color: #555555;
+    color: #FFFFFF;
 }
 
 .img-jumbotron {
-    height: 300px;
-    width: 300px;
+    height: 350px;
 }
 
 #results-title {
@@ -87,11 +108,12 @@ form {
 }
 
 #header-map-info {
-    margin-top: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #map {
-    height: 400px;
+    height: 35em;
 }
 
 #directionsPanel {
@@ -125,7 +147,6 @@ form {
    font-size: 15px;
 }
 
-
 .reviews {
     font-size: 15px;
     padding-right: 6px;
@@ -154,7 +175,6 @@ form {
     font-size: 16px;
 }
 
-
 .login, .signup {
     text-align: center;
 }
@@ -165,4 +185,8 @@ form {
 
 #auth-title {
     margin-bottom: 20px;
+}
+
+.thumbnail {
+    background-color: #EEEEEE;
 }

@@ -1,4 +1,12 @@
-    var userLat = document.getElementById("latitude");
+$(function (){
+    $(window).load(hideBrand);
+
+    function hideBrand(evt){
+        $('#brand').addClass('hidden');
+    }
+});
+
+var userLat = document.getElementById("latitude");
 var userLng = document.getElementById("longitude");
 var userAddress = document.getElementById("address");
 var progressBar = document.getElementById("progress");

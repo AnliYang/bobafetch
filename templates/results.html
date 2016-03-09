@@ -13,8 +13,6 @@
                         <div><img src={{ restaurant.image_url }} class="img-circle img-restaurant" alt="restaurant image"></div>
                         <div class="caption">
                             <h3><div class="restaurant-name">{{ restaurant.name }}</div></h3>
-            <!--                 <div><a href="{{ restaurant.yelp_url }}">View on Yelp</a></div> -->
-            <!--                 <div><img src={{ restaurant.rating_img_url }}></div> -->
                             <p class="rating-and-reviews">
                                 <span class="rating">{{ restaurant.rating }}</span><span class="fa fa-star rating-star" aria-hidden="true"></span>
                                 <span class="reviews">{{ restaurant.review_count }}</span><i class="fa fa-users reviews-users"></i>
@@ -30,7 +28,6 @@
                                     <input type="hidden" name="user-lat" value="{{ user_latitude }}">
                                     <input type="hidden" name="user-lng" value="{{ user_longitude }}">
                                     <input type="hidden" name="run-speed" value="{{ running_speed }}">
-            <!--                         <input type="submit" value="Map It!"> -->
                                     <div class="btn-group">
                                         <button type="submit" class="btn btn-primary">
                                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>

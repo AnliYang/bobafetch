@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container">
-    <h2 id="results-title">Favorite Boba Shops <small>({{ restaurants|length }} total)</small></h2>
+    <h2 id="results-title"><i class="fa fa-heart favorite-heart"></i> Favorite Boba Shops <small>({{ restaurants|length }} total)</small></h2>
     <div id="results">
         {% if restaurants %}
             {% for restaurant in restaurants %}

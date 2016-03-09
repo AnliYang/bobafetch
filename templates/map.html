@@ -6,17 +6,13 @@
             <button name="{{ restaurant.yelp_location_id }}" class="btn btn-default btn-favorite" id="favorite"><i class="fa fa-heart-o favorite-heart"></i> Favorite</button>
             <button name="{{ restaurant.yelp_location_id }}" class="btn btn-default btn-visited" id="visited"><i class="fa fa-flag visited-flag"></i> Visited</button>
         </div>
-        <h1 class="restaurant-heading"><i class="fa fa-map"></i> {{ restaurant.name }}</h1>
-    </div>
-    <!-- setting all the map inputs as data attributes for the map item -->
-    <!-- <div>running speed: {{ running_speed }}</div> -->
-        
+        <h2 class="restaurant-heading"><i class="fa fa-map"></i> {{ restaurant.name }}</h2>
+    </div>     
     <div class="row">
-        <div class="col-xs-4" id="map" style="float:left" data-startaddress="{{ user_address }}" data-startlat="{{ user_latitude }}" data-startlng="{{ user_longitude }}" data-endlat="{{ restaurant.latitude }}" data-endlng="{{ restaurant.longitude }}" data-runspd="{{ running_speed }}"></div>
-        <div id="directionsPanel" style="float:right; height 100%" class="col-xs-8"></div>
+        <div class="col-xs-6" id="map" style="float:left" data-startaddress="{{ user_address }}" data-startlat="{{ user_latitude }}" data-startlng="{{ user_longitude }}" data-endlat="{{ restaurant.latitude }}" data-endlng="{{ restaurant.longitude }}" data-runspd="{{ running_speed }}"></div>
+        <div id="directionsPanel" style="float:right; height 100%" class="col-xs-6"></div>
     </div>
 </div>
 
 <script src="static/js/boba.js"></script>
-
 {% endblock %}

@@ -20,7 +20,7 @@
     <div class="container">
         <div class="navbar-header">
             <img class="navbar-left logo" src="/static/bobafetch.png">
-            <a class="navbar-brand" href="/">BobaFetch!</a>
+            <a class="navbar-brand" href="/" id="brand">BobaFetch!</a>
         </div>
 
         <div class="navbar-collapse collapse">
@@ -38,18 +38,19 @@
         </div>
     </div>
 </div>
-
+ 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-    <div class="container" id="flash-messaging">  
-        <div class="alert alert-info" role="alert">
+    <div class="container" id="flash-messaging"> 
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>          
             <ul class="flashes">
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
             </ul>
         </div>
-    <div>
+    </div>
 {% endif %}
 {% endwith %}
 

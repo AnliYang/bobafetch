@@ -28,11 +28,11 @@ def index():
     return render_template('landing.html')
 
 
-@app.route('/alanding')
+@app.route('/oldlanding')
 def alt_landing():
     '''Alternate homepage'''
 
-    return render_template("alanding.html")
+    return render_template("old_landing.html")
 
 
 @app.route('/signup', methods=['GET'])
@@ -137,11 +137,6 @@ def show_results():
     yelp_location_ids = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
 
     restaurants = get_restaurants_from_db(yelp_location_ids)
-    # for restaurant in restaurants:
-    #     print restaurant.name
-
-    # FIXME get rid of restaurants_range stuff since not necessary
-    # restaurants_range = range(len(restaurants))
 
     if restaurants:
         return render_template('results.html', restaurants=restaurants, 
@@ -152,7 +147,9 @@ def show_results():
                                                running_speed=running_speed)
 
     else:
-        return render_template('no_results.html')
+        # return render_template('no_results.html')
+        flash("Sorry, it appears there's no boba near you!")
+        return redirect("/")
 
 
 # route after someone clicks "Map it" to show directions to a particular restaurant

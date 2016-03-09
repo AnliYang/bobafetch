@@ -1,28 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- <form action="/results" method="POST">
-    <label>Current Location
-        <input type="text" class="form-control" name="address">
-    </label>
-    <p>Click the button to get your coordinates.</p>
-    <a id="geolocate">Try It</a>
-        <input type="text" id="latitude" name="latitude">
-        <input type="text" id="longitude" name="longitude">
-    <br><label>Time Available
-        <input type="text" name="time-available" placeholder="time in minutes"> minutes
-    </label>
-    <br><br><label>Running Speed
-        <input type="text" name="running-speed" placeholder="running speed in mph"> mph
-    </label>
-    <br><br><input type="submit" value="Boba me!">
-</form> -->
-<div class="jumbotron">
+
+<div class="jumbotron jumbotorn-oldlanding">
     <div class="container"> 
         <img class="img-jumbotron" src="/static/bobafetch.png">
         <h1>BobaFetch!</h1>
         <p>Explore and enjoy.</p>
-<!-- 
-        BobaFetch provides an easy tool for finding and getting to your new favorite boba shop. Intended for runners and walkers who love bubble tea, this app curates local restaurant results for selecting a restaurant and provides a helpful map and directions for navigating to it. Users can limit their searches based on their running/walking speed and how much time they have available for procuring these delightful drinks. Users can also track their favorite and visited restaurants. -->
     </div>
 </div>
 
@@ -45,7 +28,6 @@
             </div>
             <div class="row form-group form-group-lg">
                 <div class="col-xs-12">
-        <!--                     <label for="address">Current Location</label> -->
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="fa fa-home"></i></span>
                         <input type="text" class="form-control" id="address" placeholder="ex: 1617 Hess Road, Redwood City, CA 94061" name="address">
