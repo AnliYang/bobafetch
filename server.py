@@ -7,6 +7,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 import json
 
+from geojson import FeatureCollection
+
 import yelp_call
 
 from model import connect_to_db, db, User, Restaurant, Favorite_Restaurant, Visited_Restaurant
@@ -151,6 +153,21 @@ def show_results():
         flash("Sorry, it appears there's no boba near you!")
         return redirect("/")
 
+
+@app.route('/restaurant-locations.geojson')
+def get_all_restaurant_locations():
+    """Get all restaurant locations as GeoJSON feature collection"""
+
+    restaurants = Restaurant.query.all()
+
+    features = []
+
+    for restaurant in restaurants:
+        features.append(restaurant.create_restaurant_geojson())
+
+    feature_collection = FeatureCollection(features)
+
+    return jsonify(feature_collection)
 
 # route after someone clicks "Map it" to show directions to a particular restaurant
 @app.route('/map', methods=["POST"])

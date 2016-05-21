@@ -69,6 +69,23 @@ class Restaurant(db.Model):
 
         return "<Restaurant yelp_location_id=%s>" % self.yelp_location_id
 
+    def create_restaurant_geojson(self):
+        """Create GeoJSON-ready from restaurant object."""
+
+        restaurant_geojson = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [self.longitude, self.latitude]
+            },
+            "properties": {
+                "name": self.name,
+                "marker-symbol": "rocket"
+                }
+        }
+
+        return restaurant_geojson
+
 
 class Favorite_Restaurant(db.Model):
     """Restaurants favorited by users."""
@@ -188,5 +205,5 @@ if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
-    seed(app)
+    # seed(app)
     print "Connected to DB."
