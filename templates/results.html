@@ -62,34 +62,13 @@
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoiYW5saXlhbmciLCJhIjoiY2lvZ25wbTB4MDFrdHU3a212eGZwcW91NSJ9.GOtW72gefCHdD1Y-6bza-w';
 
-// $.get('/restaurant-locations.geojson', function (results) {
-//     var geojson = results;
-//     addMarkers(geojson);
-//     });
-
-// $.get('/restaurant-locations.geojson', function (results) {
-//     addMarkers(results);
-//     });
-
 $.get('/restaurant-locations.geojson', addMarkers);
 
 var userLat = $('#map_geo').data('user-lat');
 var userLng = $('#map_geo').data('user-lng');
 
 var mapGeo = L.mapbox.map('map_geo', 'mapbox.light')
-  // .setView([userLat, userLng], 15);
   .setView([userLat, userLng], 10);
-
-// function addMarkers(geojson) {
-//     var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapGeo);
-//     mapGeo.scrollWheelZoom.disable();;
-// }
-
-// function addMarkers(results) {
-//     var geojson = results;
-//     var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapGeo);
-//     mapGeo.scrollWheelZoom.disable();;
-// }
 
 function addMarkers(results) {
     L.mapbox.featureLayer().setGeoJSON(results).addTo(mapGeo);
