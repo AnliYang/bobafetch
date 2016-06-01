@@ -67,7 +67,7 @@ $.get('/restaurant-locations.geojson', addMarkers);
 var userLat = $('#map_geo').data('user-lat');
 var userLng = $('#map_geo').data('user-lng');
 
-var mapGeo = L.mapbox.map('map_geo', 'mapbox.light')
+var mapGeo = L.mapbox.map('map_geo', 'mapbox.dark')
   .setView([userLat, userLng], 10);
 
 function addMarkers(results) {

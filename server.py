@@ -61,6 +61,11 @@ def signup_process():
     password = request.form["password"]
     first_name = request.form["firstname"]
     last_name = request.form["lastname"]
+    foo = request.form
+    print "*********"
+    print "foo: "
+    print "type: ", type(foo)
+    print "keys: ", foo.keys()
 
     new_user = User(email=email, password=password, first_name=first_name, last_name=last_name)
 
