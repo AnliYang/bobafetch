@@ -17,7 +17,7 @@ $(function (){
             // var yelpId = result.id;
             $('#favorite').addClass('active');
             $('.btn-favorite').removeClass('btn-default').addClass('btn-danger')
-            $('.favorite-heart').removeClass('fa-heart-o').addClass('fa-heart') // give our user some feedback   
+            $('.favorite-heart').removeClass('fa-heart-o').addClass('fa-heart') // give our user some feedback
         }
     }
 
@@ -71,12 +71,12 @@ var startLatLng = {lat: startLatitude, lng: startLongitude};
 
 function initialize() {
     directionsDisplay = new google.maps.DirectionsRenderer();
-  
+
 // no center, because gonna change to center on route anyway
     var mapOptions = {
         zoom:15,
     };
-  
+
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById("directionsPanel"));
@@ -98,11 +98,13 @@ function calcRoute() {
         destination:end,
         travelMode: google.maps.TravelMode.WALKING
     };
-  
+
     var directionsService = new google.maps.DirectionsService();
 
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
+            var warnings = document.getElementById("warnings-panel");
+            warnings.innerHTML = "Warning: " + response.routes[0].warnings + "";
             directionsDisplay.setDirections(response);
         }
     });

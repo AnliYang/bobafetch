@@ -135,15 +135,14 @@ def show_results():
     running_speed = int(running_speed)
 
     yelp_location_ids = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
-
     restaurants = get_restaurants_from_db(yelp_location_ids)
 
     if restaurants:
-        return render_template('results.html', restaurants=restaurants, 
-                                               # restaurants_range=restaurants_range, 
+        return render_template('results.html', restaurants=restaurants,
+                                               # restaurants_range=restaurants_range,
                                                user_address=user_address,
                                                user_latitude=user_latitude,
-                                               user_longitude=user_longitude, 
+                                               user_longitude=user_longitude,
                                                running_speed=running_speed)
 
     else:
@@ -171,7 +170,7 @@ def show_map():
     return render_template("map.html", user_address=user_address,
                                        user_latitude=user_latitude,
                                        user_longitude=user_longitude,
-                                       restaurant=restaurant, 
+                                       restaurant=restaurant,
                                        running_speed=running_speed)
 
 

@@ -8,7 +8,7 @@
     <link href="/static/css/boba.css" rel="stylesheet">
     <title>BobaFetch!</title>
 
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6zI2D_joVHSFagmBMSsgo9CvS4X6iIVg"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
@@ -23,6 +23,7 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="/about"><i class="fa fa-question-circle"></i> About</a></li>
                 {% if session.get('user_id') %}
                 <li><a href="/profile"><i class="fa fa-user"></i> My Profile</a></li>
                 <li><a href="/favorite-restaurants"><i class="fa fa-heart favorite-heart"></i> Favorites</a></li>
@@ -36,12 +37,12 @@
         </div>
     </div>
 </div>
- 
+
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-    <div class="container" id="flash-messaging"> 
+    <div class="container" id="flash-messaging">
         <div class="alert alert-info alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>          
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <ul class="flashes">
             {% for message in messages %}
                 <li>{{ message }}</li>
