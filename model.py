@@ -121,12 +121,24 @@ def connect_to_db(app, database='postgresql:///bobafetch'):
     """Connect the database to Flask app."""
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bobafetch'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
 
 
-# FIXME
-def seed(app):
+def seed_demo(app):
+    """Seeding demo data."""
+
+    demo_user = User(email='demo@bobafetch.com',
+                     password = 'bobafetch',
+                     first_name = 'Demo',
+                     last_name = 'User')
+
+    db.session.add(demo_user)
+    db.session.commit()
+
+
+def seed_test(app):
     """Sample data for testing. To be removed after stuff is all hooked up."""
 
     anli = User(email='anli@anli.com',
@@ -188,5 +200,5 @@ if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
-    seed(app)
+    seed_test(app)
     print "Connected to DB."

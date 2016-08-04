@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container login"> 
+<div class="container login">
     <h1 class="row" id="auth-title">Login</h1>
     <form action="/login" method="POST">
         <div class="row form-group form-group-lg">
             <label>Email:
-                <input type="email" name="email" class="form-control">
+                <input type="email" name="email" class="form-control" id="email">
             </label>
         </div>
         <div class="row form-group form-group-lg">
             <label>Password:
-                <input type="password" name="password" class="form-control">
+                <input type="password" name="password" class="form-control" id="password">
             </label>
         </div>
         <div class="row form-group form-group-lg">
-        <button type="submit" class="btn btn-primary btn-lg">Log In!</button>
+            <button type="submit" class="btn btn-default btn-lg" id="login">Log In!</button>
+        </div>
+        <div class="row form-group form-group-lg">
+            <button type="button" class="btn btn-info btn-lg" id="demo">Demo user?</button>
         </div>
     </form>
 </div>
+<script src="static/js/demo-login.js"></script>
 {% endblock %}
