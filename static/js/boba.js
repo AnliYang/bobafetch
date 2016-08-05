@@ -1,55 +1,65 @@
+function checkForLoggedIn(evt){
+    $.get("/check-for-logged-in", loggedInSuccess)
+}
+
+function loggedInSuccess(result){
+    if (result.status === "logged-in") {
+        console.log("Logged-in")
+    } else {
+        console.log("Not logged in");
+    }
+}
+$(window).load(checkForLoggedIn);
+
+
 // jquery shortcut for document.ready()
-$(function (){
-    function checkForFavorite(evt){
-        var favoriteButton = $('#favorite');
-        var yelpId = favoriteButton.attr('name');
-        $.post("/check-for-favorite", {'yelp-id': yelpId}, FavoritesSuccess);
+$(window).load(checkForFavorite);
+$('#favorite').click(addToFavorites);
+
+$(window).load(checkForVisited);
+$('#visited').click(addToVisited);
+
+
+function checkForFavorite(evt){
+    var favoriteButton = $('#favorite');
+    var yelpId = favoriteButton.attr('name');
+    $.post("/check-for-favorite", {'yelp-id': yelpId}, FavoritesSuccess);
+}
+
+function addToFavorites(evt){
+    var yelpId = this.name;
+    $.post("/add-to-favorites", {'yelp-id': yelpId}, FavoritesSuccess);
+}
+
+function FavoritesSuccess(result){
+    if (result.status === 'success') {
+        console.log(result.status);
+        // var yelpId = result.id;
+        $('#favorite').addClass('active');
+        $('.btn-favorite').removeClass('btn-default').addClass('btn-danger')
+        $('.favorite-heart').removeClass('fa-heart-o').addClass('fa-heart') // give our user some feedback
     }
+}
 
-    function addToFavorites(evt){
-        var yelpId = this.name;
-        $.post("/add-to-favorites", {'yelp-id': yelpId}, FavoritesSuccess);
+function checkForVisited(evt){
+    var yelpId = $('#visited').attr('name');
+    $.post("/check-for-visited", {'yelp-id': yelpId}, VisitedSuccess);
+}
+
+function addToVisited(evt){
+    var yelpId = this.name;
+    $.post("/add-to-visited", {'yelp-id': yelpId}, VisitedSuccess);
+}
+
+function VisitedSuccess(result){
+    if (result.status === 'success') {
+        console.log(result.status);
+        // var yelpId = result.id;
+        $('#visited').addClass('active');
+        $('.btn-visited').removeClass('btn-default').addClass('btn-success');
+        $('.visited-flag').removeClass('fa-flag').addClass('fa-flag-checkered'); // give our user some feedback
     }
-
-    function FavoritesSuccess(result){
-        if (result.status === 'success') {
-            console.log(result.status);
-            // var yelpId = result.id;
-            $('#favorite').addClass('active');
-            $('.btn-favorite').removeClass('btn-default').addClass('btn-danger')
-            $('.favorite-heart').removeClass('fa-heart-o').addClass('fa-heart') // give our user some feedback
-        }
-    }
-
-    $(window).load(checkForFavorite);
-    $('#favorite').click(addToFavorites);
-});
-
-$(function (){
-    function checkForVisited(evt){
-        var yelpId = $('#visited').attr('name');
-        $.post("/checkForVisited", {'yelp-id': yelpId}, VisitedSuccess);
-    }
-
-    function addToVisited(evt){
-        var yelpId = this.name;
-        $.post("/add-to-visited", {'yelp-id': yelpId}, VisitedSuccess);
-    }
-
-    function VisitedSuccess(result){
-        if (result.status === 'success') {
-            console.log(result.status);
-            // var yelpId = result.id;
-            $('#visited').addClass('active');
-            $('.btn-visited').removeClass('btn-default').addClass('btn-success');
-            $('.visited-flag').removeClass('fa-flag').addClass('fa-flag-checkered'); // give our user some feedback
-        }
-    }
-
-    $(window).load(checkForVisited);
-    $('#visited').click(addToVisited);
-});
-
+}
 
 // GOOGLE DIRECTIONS/MAP STUFF BELOW
 

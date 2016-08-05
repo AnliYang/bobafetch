@@ -244,7 +244,7 @@ def check_for_favorite():
         return jsonify(status="")
 
 
-@app.route("/checkForVisited", methods=["POST"])
+@app.route("/check-for-visited", methods=["POST"])
 def check_for_visited():
     """Check for a visited restaurant for a user"""
 
@@ -302,6 +302,17 @@ def display_visited():
     restaurants = get_restaurants_from_db(visited_restaurants)
 
     return render_template("visited.html", restaurants=restaurants)
+
+
+@app.route("/check-for-logged-in", methods=["GET"])
+def check_for_logged_in():
+    """Checks if user is logged in."""
+
+    if session.get("user_id"):
+        return jsonify(status="logged-in")
+
+    else:
+        return jsonify(status="logged-out")
 
 @app.route("/about")
 def display_about():
