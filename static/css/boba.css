@@ -194,3 +194,8 @@ form {
 .yelp-logo {
     height: 1.25em;
 }
+
+#login-please {
+    background-color: #6C826F;
+    width: 100%;
+}

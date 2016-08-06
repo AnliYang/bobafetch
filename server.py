@@ -191,32 +191,40 @@ def add_to_favorites():
     """Add a favorite restaurant for a user"""
 
     yelp_location_id = request.form.get("yelp-id")
-    user_id = session["user_id"]
+    user_id = session.get("user_id")
 
-    # create a new favorites entry for that user-restaurant combo
-    new_favorite = Favorite_Restaurant(user_id=user_id,
-                                       yelp_location_id=yelp_location_id)
+    if user_id:
+        # create a new favorites entry for that user-restaurant combo
+        new_favorite = Favorite_Restaurant(user_id=user_id,
+                                           yelp_location_id=yelp_location_id)
 
-    db.session.add(new_favorite)
-    db.session.commit()
+        db.session.add(new_favorite)
+        db.session.commit()
 
-    # send back success and an id to update the page to indicate action completed
-    return jsonify(status="success", id=yelp_location_id)
+        # send back success and an id to update the page to indicate action completed
+        return jsonify(status="success", id=yelp_location_id)
+
+    else:
+        return jsonify(status="logged-out-user")
 
 @app.route("/add-to-visited", methods=["POST"])
 def add_to_visited():
     """Add a visited restaurant for a user"""
 
     yelp_location_id = request.form.get("yelp-id")
-    user_id = session["user_id"]
+    user_id = session.get("user_id")
 
-    new_visit = Visited_Restaurant(user_id=user_id,
-                                       yelp_location_id=yelp_location_id)
+    if user_id:
+        new_visit = Visited_Restaurant(user_id=user_id,
+                                           yelp_location_id=yelp_location_id)
 
-    db.session.add(new_visit)
-    db.session.commit()
+        db.session.add(new_visit)
+        db.session.commit()
 
-    return jsonify(status="success", id=yelp_location_id)
+        return jsonify(status="success", id=yelp_location_id)
+
+    else:
+        return jsonify(status="logged-out-user")
 
 
 @app.route("/check-for-favorite", methods=["POST"])

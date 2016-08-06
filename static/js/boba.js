@@ -1,26 +1,30 @@
+
 function checkForLoggedIn(evt){
-    $.get("/check-for-logged-in", loggedInSuccess)
+    var loggedIn;
+    $.get("/check-for-logged-in", loggedInSuccess);
+    // returning loggedIn isn't working here because of async; the function for checkForLoggedIn completes before the sucess function finishes
 }
 
 function loggedInSuccess(result){
     if (result.status === "logged-in") {
-        console.log("Logged-in")
+        console.log("logged-in")
+        checkForFavorite();
+        checkForVisited();
+        loggedIn = true;
     } else {
-        console.log("Not logged in");
+        console.log("logged-out")
+        loggedIn = false;
     }
 }
 $(window).load(checkForLoggedIn);
 
-
 // jquery shortcut for document.ready()
-$(window).load(checkForFavorite);
 $('#favorite').click(addToFavorites);
-
-$(window).load(checkForVisited);
 $('#visited').click(addToVisited);
 
 
 function checkForFavorite(evt){
+    console.log("checking for favorites")
     var favoriteButton = $('#favorite');
     var yelpId = favoriteButton.attr('name');
     $.post("/check-for-favorite", {'yelp-id': yelpId}, FavoritesSuccess);
@@ -38,6 +42,8 @@ function FavoritesSuccess(result){
         $('#favorite').addClass('active');
         $('.btn-favorite').removeClass('btn-default').addClass('btn-danger')
         $('.favorite-heart').removeClass('fa-heart-o').addClass('fa-heart') // give our user some feedback
+    } else {
+        $('#login-please').removeAttr('hidden');
     }
 }
 
@@ -58,6 +64,8 @@ function VisitedSuccess(result){
         $('#visited').addClass('active');
         $('.btn-visited').removeClass('btn-default').addClass('btn-success');
         $('.visited-flag').removeClass('fa-flag').addClass('fa-flag-checkered'); // give our user some feedback
+    } else {
+        $('#login-please').removeAttr('hidden');
     }
 }
 
