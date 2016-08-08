@@ -26,8 +26,8 @@
                 <li><a href="/about"><i class="fa fa-question-circle"></i> About</a></li>
                 {% if session.get('user_id') %}
                 <li><a href="/profile"><i class="fa fa-user"></i> My Profile</a></li>
-                <li><a href="/favorite-restaurants"><i class="fa fa-heart favorite-heart"></i> Favorites</a></li>
-                <li><a href="/visited-restaurants"><i class="fa fa-flag-checkered visited-flag"></i> Visited</a></li>
+                <li><a href="/favorites"><i class="fa fa-heart favorite-heart"></i> Favorites</a></li>
+                <li><a href="/visited"><i class="fa fa-flag-checkered visited-flag"></i> Visited</a></li>
                 <li><a href="/logout"><i class="fa fa-sign-out"></i> Log Out</a></li>
                 {% else %}
                 <li><a href="/signup"><i class="fa fa-user-plus"></i> Sign Up</a></li>

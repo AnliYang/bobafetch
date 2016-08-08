@@ -27,7 +27,7 @@ function checkForFavorite(evt){
     console.log("checking for favorites")
     var favoriteButton = $('#favorite');
     var yelpId = favoriteButton.attr('name');
-    $.post("/check-for-favorite", {'yelp-id': yelpId}, FavoritesSuccess);
+    $.get("/check-for-favorite", {'yelp-id': yelpId}, FavoritesSuccess);
 }
 
 function addToFavorites(evt){
@@ -36,12 +36,13 @@ function addToFavorites(evt){
 }
 
 function FavoritesSuccess(result){
-    if (result.status === 'success') {
+    if (result.status === 'favorite') {
         console.log(result.status);
         // var yelpId = result.id;
         $('#favorite').addClass('active');
         $('.btn-favorite').removeClass('btn-default').addClass('btn-danger')
         $('.favorite-heart').removeClass('fa-heart-o').addClass('fa-heart') // give our user some feedback
+    } else if (result.status === 'not-favorite') {
     } else {
         $('#login-please').removeAttr('hidden');
     }
@@ -49,7 +50,7 @@ function FavoritesSuccess(result){
 
 function checkForVisited(evt){
     var yelpId = $('#visited').attr('name');
-    $.post("/check-for-visited", {'yelp-id': yelpId}, VisitedSuccess);
+    $.get("/check-for-visited", {'yelp-id': yelpId}, VisitedSuccess);
 }
 
 function addToVisited(evt){
@@ -58,12 +59,13 @@ function addToVisited(evt){
 }
 
 function VisitedSuccess(result){
-    if (result.status === 'success') {
+    if (result.status === 'visited') {
         console.log(result.status);
         // var yelpId = result.id;
         $('#visited').addClass('active');
         $('.btn-visited').removeClass('btn-default').addClass('btn-success');
         $('.visited-flag').removeClass('fa-flag').addClass('fa-flag-checkered'); // give our user some feedback
+    } else if (result.status === 'not-visited') {
     } else {
         $('#login-please').removeAttr('hidden');
     }
