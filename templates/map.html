@@ -19,8 +19,7 @@
     </div>
     <div class="row">
         <div class="col-xs-6" id="map" style="float:left" data-startaddress="{{ user_address }}" data-startlat="{{ user_latitude }}" data-startlng="{{ user_longitude }}" data-endlat="{{ restaurant.latitude }}" data-endlng="{{ restaurant.longitude }}" data-runspd="{{ running_speed }}"></div>
-        <div class="col-xs-6" id="directionsPanel" style="float:right; height 100%" >
-            <!-- <h2 class="restaurant-heading"><i class="fa fa-map"></i> {{ restaurant.name }}</h2> -->
+        <div class="col-xs-6" id="directionsPanel" style="float:right; height 100%">
         </div>
         <div class="col-xs-6" id="warnings-panel"></div>
     </div>
@@ -30,12 +29,6 @@
         </div>
     </div>
 </div>
-
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
 
 <script src="static/js/boba.js"></script>
 {% endblock %}
