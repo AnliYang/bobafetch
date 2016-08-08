@@ -1,4 +1,4 @@
-"""Models and database functions for Boba Fetch!"""
+"""Models and database functions for BobaFetch!"""
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -8,7 +8,6 @@ db = SQLAlchemy()
 
 ##############################################################################
 # Model definitions
-
 class User(db.Model):
     """User of boba running website."""
 
@@ -40,15 +39,12 @@ class Restaurant(db.Model):
 
     Used for favorite restaurants, routes done (visited restaurants), or both.
 
-    Uses yelp_location_id as the primary_key"""
+    Uses yelp_location_id as the primary_key."""
 
     __tablename__ = "restaurants"
 
-    # restaurant_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     yelp_location_id = db.Column(db.String(500), nullable=False, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    # address = db.Column(db.String(200), nullable=False)
-    # display_address = db.Column(db.String(500), nullable=False)
     street1 = db.Column(db.String(200), nullable=False)
     street2 = db.Column(db.String(200), nullable=True)
     city = db.Column(db.String(30), nullable=True)
@@ -77,7 +73,6 @@ class Favorite_Restaurant(db.Model):
 
     favorite_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
-    # restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
     yelp_location_id = db.Column(db.String(500), db.ForeignKey('restaurants.yelp_location_id'), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -86,7 +81,6 @@ class Favorite_Restaurant(db.Model):
 
         return "<favorite_id=%s: user %s favorited restaurant %s>" % (self.favorite_id,
                                                                       self.user_id,
-                                                                      # self.restaurant_id
                                                                       self.yelp_location_id)
 
 
@@ -99,7 +93,6 @@ class Visited_Restaurant(db.Model):
 
     visit_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    # restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
     yelp_location_id = db.Column(db.String(500), db.ForeignKey('restaurants.yelp_location_id'), nullable=False)
     distance_miles = db.Column(db.Float, nullable=True)
     running_time_minutes = db.Column(db.Integer, nullable=True)
@@ -110,13 +103,11 @@ class Visited_Restaurant(db.Model):
 
         return "<visitor_id=%s: user %s visited restaurant %s>" % (self.visit_id,
                                                                    self.user_id,
-                                                                   # self.restaurant_id
                                                                    self.yelp_location_id)
 
 
 ##############################################################################
 # Helper functions
-
 def connect_to_db(app, database='postgresql:///bobafetch'):
     """Connect the database to Flask app."""
 
@@ -126,79 +117,8 @@ def connect_to_db(app, database='postgresql:///bobafetch'):
     db.init_app(app)
 
 
-def seed_demo(app):
-    """Seeding demo data."""
-
-    demo_user = User(email='demo@bobafetch.com',
-                     password = 'bobafetch',
-                     first_name = 'Demo',
-                     last_name = 'User')
-
-    db.session.add(demo_user)
-    db.session.commit()
-
-
-def seed_test(app):
-    """Sample data for testing. To be removed after stuff is all hooked up."""
-
-    anli = User(email='anli@anli.com',
-                password='anli',
-                first_name='anli',
-                last_name='yang')
-    print "anli created"
-
-    rest = Restaurant(yelp_location_id='comebuy-drinks-redwood-city',
-                      name='Comebuy Drinks',
-                      street1='2074 Broadway',
-                      street2=None,
-                      city='Redwood City',
-                      state='CA',
-                      zip5='94063',
-                      latitude=37.4868,
-                      longitude=-122.22766,
-                      yelp_url='http://www.yelp.com/biz/comebuy-drinks-redwood-city?utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=TLw32XZLal2SNHLl-eyLKg',
-                      image_url='http://s3-media4.fl.yelpcdn.com/bphoto/qm8MD51QFahwiwNtMIyC2A/ms.jpg',
-                      mobile_url='http://m.yelp.com/biz/comebuy-drinks-redwood-city?utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=TLw32XZLal2SNHLl-eyLKg',
-                      rating=4.0,
-                      rating_img_url='http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png',
-                      review_count=39)
-    print "rest created"
-
-    # fav = Favorite_Restaurant(user_id=1,
-    #                           restaurant_id=1)
-    # print "fav created"
-
-    # vis = Visited_Restaurant(user_id=1,
-    #                          restaurant_id=1,
-    #                          distance_miles=3.20,
-    #                          running_time_minutes=30)
-    # print "vis created"
-
-    db.session.add(anli)
-    db.session.add(rest)
-    print "anli and rest added to db"
-    # user and restaurant need to be committed before creating favs or visiteds
-    db.session.commit()
-    print "anli and rest committed"
-
-    # db.session.add(fav)
-    # db.session.add(vis)
-    # print "fav and vis added to db"
-    # db.session.commit()
-    # print "fav and vis committed!"
-
-    # to reseed:
-    # in terminal:
-        # dropdb bobafetch,
-        # createdb bobafetch,
-        # python server.py
-        # python model.py
-
-
 if __name__ == "__main__":
-    # if module run in interactive mode, we can work with database directly
-
+    # run module in interactive mode to work with database directly
     from server import app
     connect_to_db(app)
-    seed_test(app)
     print "Connected to DB."
