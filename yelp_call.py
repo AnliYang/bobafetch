@@ -1,13 +1,6 @@
-""""""
+"""Calls related to the Yelp API."""
 
-
-# REFACTOR TO USE YELP PYTHON LIBRARY DOOIIII
-
-import os
-import oauth2
-import urllib
-import urllib2
-import json
+import os, oauth2, urllib, urllib2, json
 from model import db, User, Restaurant, Favorite_Restaurant, Visited_Restaurant
 
 CONSUMER_KEY = os.environ['YELP_CONSUMER_KEY']
@@ -22,27 +15,22 @@ SEARCH_LIMIT = 1
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
-# FIXME
 def get_radius(time_available, running_speed):
     """Prepares radius for use in request"""
 
-    # takes in time available, and running speed
-
-    # hardcode eating/buying to be like 10 or 15 minutes
+    # hardcode extra time for eating/buying
     consumption_time = 10
 
-    # radius = 90% of ((time available - eating time) * running speed/60)/2
+    # rounded down because working with radius instead of route distance
     radius_miles = .9 * ((time_available - consumption_time) * running_speed/60) / 2
-
     radius_meters = radius_miles * 1609.34
-    # radius needs to go into the request now
+
     return radius_meters
 
 
 def request_restaurants(user_address, user_latitude, user_longitude, radius=40000, limit=20):
     """Prepares OAuth authentication and sends the request to the API."""
 
-    # FIXME: should break out parameter if/else into its own function
     if user_address != "":
         url_params = {
             'location': user_address,
@@ -105,53 +93,18 @@ def request_restaurants(user_address, user_latitude, user_longitude, radius=4000
 
     yelp_location_ids = save_restaurants(response)
 
-    # should return a list of the yelp_location_ids, which is the primary key for restaurants table
-    # return response
     return yelp_location_ids
 
 
 def save_restaurants(response):
     """Takes in response dictionary, saves restaurants to the DB."""
 
-    # FIXME: will need to account for duplicates: if a restaurant is already in 
-    # the db (match on yelp id), you'll need to update the existing entry rather
-    # than creating a new one (probably an if statement first)
     yelp_location_ids = []
 
     for i in range(len(response['businesses'])):
-        # pull the items out of the response for a given restaurant
         index_alias = response['businesses'][i]
-
         name = index_alias['name']
-        # display_address = index_alias['location']['display_address']
-
-        # print "*" * 50
-        # print "type for street address going into the db"
-        # print type(display_address)
-
         street1 = index_alias['location']['address'][0].split('"')[0]
-        # print "street1 type: ", type(street1)
-        # print street1
-        # street2 = 'dummy street 2'
-        # # depending on the length of the street addres, parse it differently
-        # starting_address = index_alias['location']['address']
-        # num_lines = len(starting_address.split(','))
-        # if num_lines == 1:
-        #     street1 = starting_address.split(',')[0].split('{')[1].split('}')[0].split('"')[1]
-        #     print street1
-        #     # if already a string:
-        #     # else:
-        # else:
-        #     if num_lines == 2:
-        #     # only taking the first two, so just differently treating brackets
-        #         if already a string:
-        #         else: 
-        #             street1 = starting_address.split(',')[0].split('{')[1]
-        #             street2 = split(',')[1].split('"')[1]
-        #     else:
-        #         if already a string:
-        #         else: 
-
         city = index_alias['location']['city']
         state = index_alias['location']['state_code']
         zip5 = index_alias['location']['postal_code']
@@ -162,21 +115,16 @@ def save_restaurants(response):
         rating = index_alias['rating']
         rating_img_url = index_alias['rating_img_url']
         review_count = index_alias['review_count']
-        
         yelp_location_id = index_alias['id']
+
         yelp_location_ids.append(yelp_location_id)
 
         existing_restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==yelp_location_id).all()
 
         if existing_restaurant:
-            # print existing_restaurant
-            # print len(existing_restaurant)
-            # print existing_restaurant[0].yelp_location_id
-            print "it's totally already in there."
-            # FIXME would ideally update with new restaurant location
+            pass #FIXME: update existing entry
 
         else:
-            # instantiate the Restaurant object
             new_restaurant = Restaurant(yelp_location_id=yelp_location_id,
                                         name=name,
                                         # display_address=display_address,
@@ -193,31 +141,15 @@ def save_restaurants(response):
                                         rating=rating,
                                         rating_img_url=rating_img_url,
                                         review_count=review_count)
-
-            # add to the db and commit!
             db.session.add(new_restaurant)
             db.session.commit()
 
     return yelp_location_ids
 
 
-def convert_response():
-    """Turn the Yelp response into a list of dictionaries"""
-
-    pass
-    # only necessary/useful if you're not saving to the dictionary right now
-
-
 def search(user_address, user_latitude, user_longitude, time_available, running_speed):
     """Query Yelp's Search API"""
 
-    # preps the search params for request()
-    # yelp example also passes in the API_HOST and SEARCH_PATH
-
-    # pass
-
-# FIXME:
-    # takes in user_address, time available, and running speed
     radius = get_radius(time_available, running_speed)
     response = request_restaurants(user_address, user_latitude, user_longitude, radius)
 
