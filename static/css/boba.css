@@ -114,6 +114,7 @@ form {
 
 #map {
     height: 35em;
+    margin-bottom: 25px;
 }
 
 #directionsPanel {
