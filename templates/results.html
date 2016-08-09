@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h2 id="results-title">Boba Near You <small>({{ restaurants|length }} results <img class="yelp-logo" src="static/yelp-assets/yelp_btn/iOS & Web/yelp_powered_btn_dark@3x.png">)</small></h2>
+    <h2 id="results-title">Boba Near You <small>({{ restaurants|length }} results <img class="yelp-logo" src="static/yelp_powered.png">)</small></h2>
     <div id="results" data-restaurants="{{ restaurants }}">
         {% if restaurants %}
             {% for restaurant in restaurants %}
