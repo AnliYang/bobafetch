@@ -57,6 +57,7 @@ def seed_test(app):
 if __name__ == "__main__":
     from server import app
     from model import db, connect_to_db, User, Restaurant
+    import os
 
     connect_to_db(app, os.environ.get("DATABASE_URL"))
     seed_demo(app)
