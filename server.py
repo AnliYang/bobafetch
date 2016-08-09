@@ -1,21 +1,15 @@
 """BobaFetch: Running for bubble tea!"""
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
 import jinja2 as jinja
 import json
+import os
 
 import yelp_call
-
 from model import connect_to_db, db, User, Restaurant, Favorite_Restaurant, Visited_Restaurant
 
 app = Flask(__name__)
-app.secret_key = "ALLOFTHEBOBAAREMINE"
-
-# Letting Jinja help me by raising an error upon use of an
-# undefined variable, as opposed to letting it fail silently on me
-app.jinja_env.undefined = jinja.StrictUndefined
-
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "ABCDEF")
 
 @app.route('/')
 def index():
@@ -34,7 +28,6 @@ def signup_form():
 @app.route('/signup', methods=['POST'])
 def signup_process():
     """Process signup form"""
-    # FIXME: Add handling for already existing user, put in place security measures
 
     email = request.form["email"]
     password = request.form["password"]
@@ -279,12 +272,12 @@ def get_restaurants_from_db(list_of_yelp_ids):
 
     return restaurants
 
-if __name__ == "__main__":
-# using the Flask Debug bar, including setting debug = True
-    app.debug = True
-    DebugToolbarExtension(app)
 
-    connect_to_db(app)
+if __name__ == "__main__":
+
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
     db.create_all()
 
-    app.run()
+    PORT = int(os.environ.get("PORT", 5000))
+    DEBUG = "NO_DEBUG" not in os.environ
+    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
