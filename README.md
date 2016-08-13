@@ -1,7 +1,7 @@
 # BobaFetch!
 #### Run for bubble tea.
 
-Try it out [here](bobafetch.herokuapp.com/).
+Try it out [here](bobafetch.herokuapp.com).
 
 BobaFetch provides an easy tool for finding and getting to your new favorite boba shop. Intended for runners and walkers who love bubble tea, this app curates local restaurant results for selecting a restaurant and provides a helpful map and directions for navigating to it. Users can limit their searches based on their running/walking speed and how much time they have available for procuring these delightful drinks. Users can also track their favorite and visited restaurants.
 
