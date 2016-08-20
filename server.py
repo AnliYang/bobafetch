@@ -100,14 +100,19 @@ def show_results():
     running_speed = int(request.form.get("running-speed"))
 
     yelp_location_ids = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
+    print "getting restaurants during original results call:"
     restaurants = get_restaurants_from_db(yelp_location_ids)
+
+    feature_collection = make_feature_collection(yelp_location_ids)
 
     if restaurants:
         return render_template('results.html', restaurants=restaurants,
+                                               restaurant_ids=yelp_location_ids,
                                                user_address=user_address,
                                                user_latitude=user_latitude,
                                                user_longitude=user_longitude,
-                                               running_speed=running_speed)
+                                               running_speed=running_speed,
+                                               feature_collection=feature_collection)
     else:
         flash("Sorry, it appears there's no boba near you!")
         return redirect("/")
@@ -127,6 +132,44 @@ def get_all_restaurant_locations():
     feature_collection = FeatureCollection(features)
 
     return jsonify(feature_collection)
+
+
+# FOOLS ERRAND BELOW; though I should figure out how to get this list out of the
+    # JSON sent over with the AJAX GET request properly, I should actually
+    # just be sending over teh feature collection with the regular "results"
+# @app.route('/restaurant-locations.geojson', methods=["GET"])
+# def get_restaurant_locations():
+#     """Get restaurant locations as GeoJSON feature collection"""
+#
+#     print "****getting into get_restaurant_locations"
+#     print "more"
+#
+#     restaurant_ids = request.args.get("restaurant-ids", type=str)
+#     # restaurant_ids = request.args
+#
+#     # restaurant_ids = json.loads("restaurant-ids")
+#     # restaurant_ids = request.get_json()["restaurant-ids"]
+#     # restaurant_ids = json.loads(request.args.get('restaurant-ids'))
+#     # restaurant_ids = json.load(request.args.get('restaurant-ids'))
+#     # restaurant_ids = json.load('restaurant-ids')
+#     # restaurant_ids = request.json.get("restaurant_ids")
+#
+#     print "restaurant_ids type:", type(restaurant_ids)
+#
+#     print
+#     print "*********getting restaurants for GeoJSON"
+#     restaurants = get_restaurants_from_db(restaurant_ids)
+#     print "GOT TO FEATURES"
+#
+#     features = []
+#
+#     for restaurant in restaurants:
+#         features.append(restaurant.create_restaurant_geojson())
+#
+#     feature_collection = FeatureCollection(features)
+#     print "feature_collection:", feature_collection
+#
+#     return jsonify(feature_collection)
 
 
 # route after someone clicks "Map it" to show directions to a particular restaurant
@@ -288,13 +331,33 @@ def check_for_logged_in():
 def get_restaurants_from_db(list_of_yelp_ids):
     """Grab restaurants from DB, returns a list of restaurant dictionaries."""
 
+    print "list_of_yelp_ids:", list_of_yelp_ids
+    print "type: ", type(list_of_yelp_ids)
     restaurants = []
 
     for id in list_of_yelp_ids:
+        print "id:", id
         restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==id).one()
         restaurants.append(restaurant)
 
+    print "finished getting restaurants"
     return restaurants
+
+
+def make_feature_collection(yelp_location_ids):
+    """Turn restaurant information into GeoJSON feature collection."""
+
+    restaurants = get_restaurants_from_db(yelp_location_ids)
+
+    features = []
+
+    for restaurant in restaurants:
+        features.append(restaurant.create_restaurant_geojson())
+
+    feature_collection = FeatureCollection(features)
+
+    # return jsonify(feature_collection)
+    return feature_collection
 
 
 if __name__ == "__main__":

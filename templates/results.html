@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<!-- <div class="container">
     <h2 id="results-title">Boba Near You <small>({{ restaurants|length }} results <img class="yelp-logo" src="static/yelp_powered.png">)</small></h2>
     <div id="results" data-restaurants="{{ restaurants }}">
         {% if restaurants %}
@@ -55,26 +55,9 @@
             {% endfor %}
         {% endif %}
     </div>
-</div>
+</div> -->
+<div id='map_geo' class='mapbox' data-user-lat="{{ user_latitude }}" data-user-lng="{{ user_longitude }}" data-restaurant-ids="{{ restaurant_ids }}" data-feature-collection="{{ feature_collection }}"> </div>
 
 <script src="static/js/results.js"></script>
-<div id='map_geo' class='mapbox' data-user-lat="{{ user_latitude }}" data-user-lng="{{ user_longitude }}"> </div>
-<script>
-L.mapbox.accessToken = 'pk.eyJ1IjoiYW5saXlhbmciLCJhIjoiY2lvZ25wbTB4MDFrdHU3a212eGZwcW91NSJ9.GOtW72gefCHdD1Y-6bza-w';
-
-$.get('/restaurant-locations.geojson', addMarkers);
-
-var userLat = $('#map_geo').data('user-lat');
-var userLng = $('#map_geo').data('user-lng');
-
-var mapGeo = L.mapbox.map('map_geo', 'mapbox.dark')
-  .setView([userLat, userLng], 10);
-
-function addMarkers(results) {
-    L.mapbox.featureLayer().setGeoJSON(results).addTo(mapGeo);
-    mapGeo.scrollWheelZoom.disable();;
-}
-
-</script>
 
 {% endblock %}
