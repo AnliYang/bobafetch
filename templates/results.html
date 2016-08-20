@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="container">
-    <h2 id="results-title">Boba Near You <small>({{ restaurants|length }} results)</small></h2>
+    <h2 id="results-title">Boba Near You <small>({{ restaurants|length }} results <img class="yelp-logo" src="static/yelp_powered.png">)</small></h2>
     <div id="results" data-restaurants="{{ restaurants }}">
         {% if restaurants %}
             {% for restaurant in restaurants %}
@@ -41,7 +41,7 @@
                                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                                             Map It!
                                         </button>
-                                        <a href="{{ restaurant.yelp_url }}" class="btn btn-warning"><i class="fa fa-yelp"></i> Learn more!
+                                        <a href="{{ restaurant.yelp_url }}" class="btn btn-warning"><i class="fa fa-yelp"></i> Read reviews!
                                         </a>
                                     </div>
                                 </form>
