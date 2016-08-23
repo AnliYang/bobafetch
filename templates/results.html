@@ -56,8 +56,12 @@
         {% endif %}
     </div>
 </div> -->
-<div id='map_geo' class='mapbox' data-user-lat="{{ user_latitude }}" data-user-lng="{{ user_longitude }}" data-restaurant-ids="{{ restaurant_ids }}" data-feature-collection="{{ feature_collection }}"> </div>
-
+<div id='map_geo' class='mapbox' data-user-lat="{{ user_latitude }}"
+                                 data-user-lng="{{ user_longitude }}"
+                                 data-restaurant-ids="{{ restaurant_ids }}"
+                                 data-feature-collection="{{ feature_collection }}"
+                                 data-user-address="{{ user_address }}"
+                                 data-run-speed="{{ running_speed }}"></div>
 <script src="static/js/results.js"></script>
 
 {% endblock %}

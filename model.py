@@ -75,7 +75,14 @@ class Restaurant(db.Model):
                 "coordinates": [self.longitude, self.latitude]
             },
             "properties": {
+                "yelp-location-id": self.yelp_location_id,
                 "name": self.name,
+                "url": self.yelp_url,
+                "street1": self.street1,
+                "city": self.city,
+                "state": self.state,
+                "zip": self.zip5,
+                "image": self.image_url,
                 "marker-symbol": "rocket"
                 }
         }
