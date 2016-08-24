@@ -176,6 +176,15 @@ form {
     font-size: 16px;
 }
 
+.jumbotron .about-me {
+    font-size: 14px;
+    margin-top: auto;
+}
+
+.btn-jumbotron-fetch {
+    margin-top: auto;
+}
+
 .login, .signup {
     text-align: center;
 }
@@ -199,4 +208,8 @@ form {
 #login-please {
     background-color: #6C826F;
     width: 100%;
+}
+
+#artist-credit {
+    margin-bottom: 1em;
 }
