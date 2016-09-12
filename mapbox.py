@@ -30,7 +30,3 @@ def reverse_geocode(latitude, longitude):
     response = requests.get(url, params=params).json()
 
     return response['features'][0]['place_name']
-
-
-
-# curl -X GET "https://api.mapbox.com/geocoding/v5/mapbox.places/1617-hess-rd-redwood-city-ca-94061.json?country=us&access_token=pk.eyJ1IjoiYW5saXlhbmciLCJhIjoiY2lvZ25wbTB4MDFrdHU3a212eGZwcW91NSJ9.GOtW72gefCHdD1Y-6bza-w"
