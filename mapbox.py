@@ -14,9 +14,10 @@ def geocode(address):
     }
 
     response = requests.get(url, params=params).json()
-    longitude, latitude = response['features'][0]['center']
 
-    return (latitude, longitude)
+    if response.get('features'):
+        longitude, latitude = response['features'][0]['center']
+        return (latitude, longitude)
 
 
 def reverse_geocode(latitude, longitude):
@@ -29,4 +30,5 @@ def reverse_geocode(latitude, longitude):
 
     response = requests.get(url, params=params).json()
 
-    return response['features'][0]['place_name']
+    if response.get('features'):
+        return response['features'][0]['place_name']
