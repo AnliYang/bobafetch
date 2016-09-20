@@ -80,8 +80,6 @@ var endLatitude = parseFloat(mapElement.dataset.endlat);
 var endLongitude = parseFloat(mapElement.dataset.endlng);
 var endLatLng = {lat: endLatitude, lng: endLongitude};
 
-var startAddress = mapElement.dataset.startaddress;
-
 var startLatitude = parseFloat(mapElement.dataset.startlat);
 var startLongitude = parseFloat(mapElement.dataset.startlng);
 var startLatLng = {lat: startLatitude, lng: startLongitude};
@@ -100,13 +98,7 @@ function initialize() {
 }
 
 function calcRoute() {
-    var start;
-    if (startAddress !== "") {
-        start = startAddress;
-    } else {
-        start = startLatLng;
-    }
-
+    var start = startLatLng;
     var end = endLatLng;
 
     var request = {

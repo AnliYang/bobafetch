@@ -32,7 +32,6 @@
                             <div>
                                 <form action="/map" method="POST">
                                     <input type="hidden" name="yelp-id" value="{{ restaurant.yelp_location_id }}">
-                                    <input type="hidden" name="user-address" value="{{ user_address }}">
                                     <input type="hidden" name="user-lat" value="{{ user_latitude }}">
                                     <input type="hidden" name="user-lng" value="{{ user_longitude }}">
                                     <input type="hidden" name="run-speed" value="{{ running_speed }}">
@@ -60,7 +59,6 @@
                                  data-user-lng="{{ user_longitude }}"
                                  data-restaurant-ids="{{ restaurant_ids }}"
                                  data-feature-collection="{{ feature_collection }}"
-                                 data-user-address="{{ user_address }}"
                                  data-run-speed="{{ running_speed }}"></div>
 <script src="static/js/results.js"></script>
 

@@ -2,7 +2,6 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiYW5saXlhbmciLCJhIjoiY2lvZ25wbTB4MDFrdHU3a212e
 
 var userLat = $('#map_geo').data('user-lat');
 var userLng = $('#map_geo').data('user-lng');
-var userAddress = $('#map_geo').data('user-address');
 var userRunSpeed = $('#map_geo').data('run-speed');
 
 var features = $('#map_geo').data('feature-collection')
@@ -29,7 +28,6 @@ featureLayer.eachLayer(function(layer) {
         '<br \/>' +
         '<form action="/map" method="POST">' +
             '<input type="hidden" name="yelp-id" value="' + restaurant["yelp-location-id"] + '">' +
-            '<input type="hidden" name="user-address" value="' + userAddress + '">' +
             '<input type="hidden" name="user-lat" value="' + userLat + '">' +
             '<input type="hidden" name="user-lng" value="' + userLng + '">' +
             '<input type="hidden" name="run-speed" value="' + userRunSpeed + '">' +

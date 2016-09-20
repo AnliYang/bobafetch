@@ -7,7 +7,7 @@ import os
 
 from geojson import FeatureCollection
 
-import yelp_call
+import yelp_call, mapbox
 from model import connect_to_db, db, User, Restaurant, Favorite_Restaurant, Visited_Restaurant
 
 app = Flask(__name__)
@@ -99,7 +99,12 @@ def show_results():
     time_available = int(request.form.get("time-available"))
     running_speed = int(request.form.get("running-speed"))
 
-    yelp_location_ids = yelp_call.search(user_address, user_latitude, user_longitude, time_available, running_speed)
+    if user_address:
+        user_latitude, user_longitude = mapbox.geocode(user_address)
+        user_latitude = str(user_latitude)
+        user_longitude = str(user_longitude)
+
+    yelp_location_ids = yelp_call.search(user_latitude, user_longitude, time_available, running_speed)
     print "getting restaurants during original results call:"
     restaurants = get_restaurants_from_db(yelp_location_ids)
 
@@ -108,7 +113,6 @@ def show_results():
     if restaurants:
         return render_template('results.html', restaurants=restaurants,
                                                restaurant_ids=yelp_location_ids,
-                                               user_address=user_address,
                                                user_latitude=user_latitude,
                                                user_longitude=user_longitude,
                                                running_speed=running_speed,
@@ -134,7 +138,7 @@ def get_all_restaurant_locations():
     return jsonify(feature_collection)
 
 
-# FOOLS ERRAND BELOW; though I should figure out how to get this list out of the
+# FOOL'S ERRAND BELOW; though I should figure out how to get this list out of the
     # JSON sent over with the AJAX GET request properly, I should actually
     # just be sending over teh feature collection with the regular "results"
 # @app.route('/restaurant-locations.geojson', methods=["GET"])
@@ -178,15 +182,13 @@ def show_map():
     """Shows map route to individual restaurant."""
 
     yelp_location_id = request.form.get("yelp-id")
-    user_address = request.form.get("user-address")
     user_latitude = request.form.get("user-lat")
     user_longitude = request.form.get("user-lng")
     running_speed = request.form.get("run-speed")
 
     restaurant = db.session.query(Restaurant).filter(Restaurant.yelp_location_id==yelp_location_id).one()
 
-    return render_template("map.html", user_address=user_address,
-                                       user_latitude=user_latitude,
+    return render_template("map.html", user_latitude=user_latitude,
                                        user_longitude=user_longitude,
                                        restaurant=restaurant,
                                        running_speed=running_speed)

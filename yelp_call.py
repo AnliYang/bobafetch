@@ -28,31 +28,20 @@ def get_radius(time_available, running_speed):
     return radius_meters
 
 
-def request_restaurants(user_address, user_latitude, user_longitude, radius=40000, limit=20):
+def request_restaurants(user_latitude, user_longitude, radius=40000, limit=20):
     """Prepares OAuth authentication and sends the request to the API."""
 
-    if user_address != "":
-        url_params = {
-            'location': user_address,
-            'limit': limit,
-            # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
-            'sort': 1,
-            'category_filter': 'bubbletea',
-            # Search radius in meters. Max value is 40000 meters (25 miles).
-            'radius_filter': radius
-        }
-    else:
-        user_lat_lng = user_latitude + ',' + user_longitude
+    user_lat_lng = user_latitude + ',' + user_longitude
 
-        url_params = {
-            'll': user_lat_lng,
-            'limit': limit,
-            # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
-            'sort': 1,
-            'category_filter': 'bubbletea',
-            # Search radius in meters. Max value is 40000 meters (25 miles).
-            'radius_filter': radius
-        }
+    url_params = {
+        'll': user_lat_lng,
+        'limit': limit,
+        # Sort mode: 0=Best matched (default), 1=Distance, 2=Highest Rated.
+        'sort': 1,
+        'category_filter': 'bubbletea',
+        # Search radius in meters. Max value is 40000 meters (25 miles).
+        'radius_filter': radius
+    }
 
     url = 'https://{0}{1}?'.format(API_HOST, urllib.quote(SEARCH_PATH.encode('utf8')))
 
@@ -147,11 +136,11 @@ def save_restaurants(response):
     return yelp_location_ids
 
 
-def search(user_address, user_latitude, user_longitude, time_available, running_speed):
+def search(user_latitude, user_longitude, time_available, running_speed):
     """Query Yelp's Search API"""
 
     radius = get_radius(time_available, running_speed)
-    response = request_restaurants(user_address, user_latitude, user_longitude, radius)
+    response = request_restaurants(user_latitude, user_longitude, radius)
 
     return response
 
