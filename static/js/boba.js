@@ -74,7 +74,7 @@ function VisitedSuccess(result){
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
-var mapElement = document.getElementById('map');
+var mapElement = document.getElementById('directions-map');
 
 var endLatitude = parseFloat(mapElement.dataset.endlat);
 var endLongitude = parseFloat(mapElement.dataset.endlng);
@@ -92,8 +92,8 @@ function initialize() {
         zoom:15,
     };
 
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    directionsDisplay.setMap(map);
+    var directionsMap = new google.maps.Map(document.getElementById("directions-map"), mapOptions);
+    directionsDisplay.setMap(directionsMap);
     directionsDisplay.setPanel(document.getElementById("directionsPanel"));
 }
 

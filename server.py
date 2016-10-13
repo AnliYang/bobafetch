@@ -138,44 +138,6 @@ def get_all_restaurant_locations():
     return jsonify(feature_collection)
 
 
-# FOOL'S ERRAND BELOW; though I should figure out how to get this list out of the
-    # JSON sent over with the AJAX GET request properly, I should actually
-    # just be sending over teh feature collection with the regular "results"
-# @app.route('/restaurant-locations.geojson', methods=["GET"])
-# def get_restaurant_locations():
-#     """Get restaurant locations as GeoJSON feature collection"""
-#
-#     print "****getting into get_restaurant_locations"
-#     print "more"
-#
-#     restaurant_ids = request.args.get("restaurant-ids", type=str)
-#     # restaurant_ids = request.args
-#
-#     # restaurant_ids = json.loads("restaurant-ids")
-#     # restaurant_ids = request.get_json()["restaurant-ids"]
-#     # restaurant_ids = json.loads(request.args.get('restaurant-ids'))
-#     # restaurant_ids = json.load(request.args.get('restaurant-ids'))
-#     # restaurant_ids = json.load('restaurant-ids')
-#     # restaurant_ids = request.json.get("restaurant_ids")
-#
-#     print "restaurant_ids type:", type(restaurant_ids)
-#
-#     print
-#     print "*********getting restaurants for GeoJSON"
-#     restaurants = get_restaurants_from_db(restaurant_ids)
-#     print "GOT TO FEATURES"
-#
-#     features = []
-#
-#     for restaurant in restaurants:
-#         features.append(restaurant.create_restaurant_geojson())
-#
-#     feature_collection = FeatureCollection(features)
-#     print "feature_collection:", feature_collection
-#
-#     return jsonify(feature_collection)
-
-
 # route after someone clicks "Map it" to show directions to a particular restaurant
 @app.route('/map', methods=["POST"])
 def show_map():

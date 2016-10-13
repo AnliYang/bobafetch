@@ -1,13 +1,16 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoiYW5saXlhbmciLCJhIjoiY2lvZ25wbTB4MDFrdHU3a212eGZwcW91NSJ9.GOtW72gefCHdD1Y-6bza-w';
 
-var userLat = $('#map_geo').data('user-lat');
-var userLng = $('#map_geo').data('user-lng');
-var userRunSpeed = $('#map_geo').data('run-speed');
+var mapViewResults = $('#map-view-results');
+var listViewResults = $('#list-view-results');
 
-var features = $('#map_geo').data('feature-collection')
+var userLat = mapViewResults.data('user-lat');
+var userLng = mapViewResults.data('user-lng');
+var userRunSpeed = mapViewResults.data('run-speed');
 
-var mapGeo = L.mapbox.map('map_geo', 'mapbox.dark')
-    .setView([userLat, userLng], 13);
+var features = mapViewResults.data('feature-collection')
+
+var mapGeo = L.mapbox.map('map-view-results', 'mapbox.dark')
+    .setView([userLat, userLng], 14);
 
 var featureLayer = L.mapbox.featureLayer();
 
@@ -40,3 +43,26 @@ featureLayer.eachLayer(function(layer) {
         ;
     layer.bindPopup(content);
 });
+
+var mapViewButton = $('#map-view-button');
+var listViewButton = $('#list-view-button');
+
+function toggleMap (evt) {
+    console.log("Got into toggleMap!");
+    mapViewResults.toggle();
+    listViewResults.toggle();
+
+// FIXME THIS IS A MESS
+    if (mapViewButton.attr('disabled') === 'disabled') {
+        mapViewButton.removeAttr('disabled');
+        listViewButton.attr('disabled', 'disabled')
+    }
+    else {
+        mapViewButton.attr('disabled', 'disabled')
+        listViewButton.removeAttr('disabled');
+    }
+
+}
+
+mapViewButton.click(toggleMap);
+listViewButton.click(toggleMap);

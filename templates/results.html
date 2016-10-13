@@ -2,15 +2,27 @@
 {% block head %}
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
-  <style>
-    .mapbox { position:absolute; top:0; bottom:0; width:100%; margin-top:60px;}
-  </style>
 {% endblock %}
 
 {% block content %}
-<!-- <div class="container">
-    <h2 id="results-title">Boba Near You <small>({{ restaurants|length }} results <img class="yelp-logo" src="static/yelp_powered.png">)</small></h2>
-    <div id="results" data-restaurants="{{ restaurants }}">
+<div class="container" id='results'>
+    <div class="mapbox" id="map-view-results"
+         data-user-lat="{{ user_latitude }}"
+         data-user-lng="{{ user_longitude }}"
+         data-restaurant-ids="{{ restaurant_ids }}"
+         data-feature-collection="{{ feature_collection }}"
+         data-run-speed="{{ running_speed }}">
+    </div>
+    <!-- <div id="yelp-logo">
+        <h3><img class="yelp-logo pull-right" src="static/yelp_powered.png"></h3>
+    </div> -->
+    <div class="row" id="view-buttons">
+        <h2 class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" id="map-view-button" disabled="disabled">Show Map</button>
+            <button type="button" class="btn btn-default" id="list-view-button">Show List</button>
+        </h2>
+    </div>
+    <div id="list-view-results" data-restaurants="{{ restaurants }}" style='display: None'>
         {% if restaurants %}
             {% for restaurant in restaurants %}
             {% if loop.index is divisibleby 4 %}
@@ -38,9 +50,9 @@
                                     <div class="btn-group">
                                         <button type="submit" class="btn btn-primary">
                                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                            Map It!
+                                            Map
                                         </button>
-                                        <a href="{{ restaurant.yelp_url }}" class="btn btn-warning"><i class="fa fa-yelp"></i> Read reviews!
+                                        <a href="{{ restaurant.yelp_url }}" class="btn btn-warning"><i class="fa fa-yelp"></i> Reviews
                                         </a>
                                     </div>
                                 </form>
@@ -54,12 +66,8 @@
             {% endfor %}
         {% endif %}
     </div>
-</div> -->
-<div id='map_geo' class='mapbox' data-user-lat="{{ user_latitude }}"
-                                 data-user-lng="{{ user_longitude }}"
-                                 data-restaurant-ids="{{ restaurant_ids }}"
-                                 data-feature-collection="{{ feature_collection }}"
-                                 data-run-speed="{{ running_speed }}"></div>
+</div>
+
 <script src="static/js/results.js"></script>
 
 {% endblock %}
