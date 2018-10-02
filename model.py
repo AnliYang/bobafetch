@@ -54,9 +54,7 @@ class Restaurant(db.Model):
     longitude = db.Column(db.Float, nullable=False)
     yelp_url = db.Column(db.String(2000), nullable=False)
     image_url = db.Column(db.String(2000), nullable=False)
-    mobile_url = db.Column(db.String(2000), nullable=False)
     rating = db.Column(db.Float, nullable=False)
-    rating_img_url = db.Column(db.String(2000), nullable=False)
     review_count = db.Column(db.Integer, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 

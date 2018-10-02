@@ -92,7 +92,10 @@ form {
 }
 
 .img-restaurant {
-    padding-top: 10px;
+    object-fit: cover;
+    height: 120px;
+    width: 120px;
+    margin-top: 10px;
 }
 
 .restaurant-name {

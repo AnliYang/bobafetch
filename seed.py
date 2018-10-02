@@ -33,9 +33,7 @@ def seed_test(app):
                       longitude=-122.22766,
                       yelp_url='http://www.yelp.com/biz/comebuy-drinks-redwood-city?utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=TLw32XZLal2SNHLl-eyLKg',
                       image_url='http://s3-media4.fl.yelpcdn.com/bphoto/qm8MD51QFahwiwNtMIyC2A/ms.jpg',
-                      mobile_url='http://m.yelp.com/biz/comebuy-drinks-redwood-city?utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=TLw32XZLal2SNHLl-eyLKg',
                       rating=4.0,
-                      rating_img_url='http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png',
                       review_count=39)
     print "restaurant created"
 
