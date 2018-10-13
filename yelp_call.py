@@ -10,6 +10,7 @@ DEFAULT_TERM = 'boba'
 DEFAULT_LOCATION = 'San Francisco, CA'
 SEARCH_LIMIT = 1
 BUSINESS_SEARCH_PATH = '/v3/businesses/search'
+MAX_RADIUS = 40000
 
 def get_radius(time_available, running_speed):
     """Prepares radius for use in request. Integer required by Yelp API."""
@@ -21,7 +22,7 @@ def get_radius(time_available, running_speed):
     radius_miles = .9 * ((time_available - consumption_time) * running_speed/60) / 2
     radius_meters = radius_miles * 1609.34
 
-    return int(radius_meters)
+    return min(int(radius_meters), MAX_RADIUS)
 
 def request_restaurants(user_latitude, user_longitude, radius=40000, limit=20):
     """Requests restaurants from Yelp API."""
